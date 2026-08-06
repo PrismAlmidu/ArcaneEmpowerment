@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "arcaneempowerment:block/modifiertemplate",
+    "down": "arcaneempowerment:block/modifierbottom",
+    "up": "arcaneempowerment:block/modifiertop",
+    "north": "arcaneempowerment:block/modifierdolphinsgrace",
+    "south": "arcaneempowerment:block/modifierdolphinsgrace",
+    "east": "arcaneempowerment:block/modifierdolphinsgrace",
+    "west": "arcaneempowerment:block/modifierdolphinsgrace"
+  }
+}
