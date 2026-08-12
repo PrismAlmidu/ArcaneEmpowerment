@@ -56,6 +56,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.MODIFIER_SPELLPRESERVING_BLOCK.get());
                         pOutput.accept(ModBlocks.MODIFIER_STRENGTH_BLOCK.get());
                         pOutput.accept(ModBlocks.MODIFIER_WATERBREATHING_BLOCK.get());
+
+                        pOutput.accept(ModBlocks.CRAFTING_ALTAR_T1.get());
                     })
                     .build());
 

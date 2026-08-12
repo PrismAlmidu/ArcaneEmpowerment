@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "arcaneempowerment:chronium_shard"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:chronium_block"
+  }
+}

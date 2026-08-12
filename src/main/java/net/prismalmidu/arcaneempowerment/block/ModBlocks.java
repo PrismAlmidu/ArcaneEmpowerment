@@ -11,6 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.prismalmidu.arcaneempowerment.ArcaneEmpowerment;
 import net.prismalmidu.arcaneempowerment.item.ModItems;
+import net.prismalmidu.arcaneempowerment.block.custom.CraftingAltarT1Block;
 
 import java.util.function.Supplier;
 
@@ -80,6 +81,9 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<Block> MODIFIER_WATERBREATHING_BLOCK = registerBlock("modifier_waterbreathing_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+
+    public static final RegistryObject<Block> CRAFTING_ALTAR_T1 = registerBlock("crafting_altar_t1",
+            () -> new CraftingAltarT1Block(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).noOcclusion()));
 
 
 

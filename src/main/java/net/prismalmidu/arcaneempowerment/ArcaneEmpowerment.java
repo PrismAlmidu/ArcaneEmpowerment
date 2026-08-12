@@ -1,6 +1,7 @@
 package net.prismalmidu.arcaneempowerment;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,8 +15,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.prismalmidu.arcaneempowerment.block.ModBlocks;
+import net.prismalmidu.arcaneempowerment.block.entity.ModBlockEntities;
 import net.prismalmidu.arcaneempowerment.item.ModCreativeModeTabs;
 import net.prismalmidu.arcaneempowerment.item.ModItems;
+import net.prismalmidu.arcaneempowerment.screen.CraftingAltarT1Screen;
+import net.prismalmidu.arcaneempowerment.screen.ModMenuTypes;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -35,6 +39,9 @@ public class ArcaneEmpowerment
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -63,6 +70,8 @@ public class ArcaneEmpowerment
     {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+
+            MenuScreens.register(ModMenuTypes.CRAFTING_ALTAR_T1_MENU.get(), CraftingAltarT1Screen::new);
         }
     }
 }

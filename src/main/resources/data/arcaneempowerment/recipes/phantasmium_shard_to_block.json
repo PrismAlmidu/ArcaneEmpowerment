@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "arcaneempowerment:phantasmium_shard"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:phantasmium_block"
+  }
+}

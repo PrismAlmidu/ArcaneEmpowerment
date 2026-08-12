@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "arcaneempowerment:stellarium_shard"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:stellarium_block"
+  }
+}

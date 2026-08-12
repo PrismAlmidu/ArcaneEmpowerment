@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients":[
+    {
+      "item": "arcaneempowerment:phantasmium_block"
+    }
+  ],
+  "result": {
+    "item": "arcaneempowerment:phantasmium_shard",
+    "count": 9
+  }
+}
