@@ -28,9 +28,9 @@ public class CraftingAltarT1Screen extends AbstractContainerScreen<CraftingAltar
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        renderBackground(guiGraphics);
-        super.render(guiGraphics, mouseX, mouseY, delta);
-        renderTooltip(guiGraphics, mouseX, mouseY);
+    public void render(GuiGraphics pGuiGraphics, int mouseX, int mouseY, float delta) {
+        renderBackground(pGuiGraphics);
+        super.render(pGuiGraphics, mouseX, mouseY, delta);
+        renderTooltip(pGuiGraphics, mouseX, mouseY);
     }
 }

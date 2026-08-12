@@ -19,7 +19,7 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public CraftingAltarT1Menu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv,inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(10));
+        this(pContainerId, inv,inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
     }
 
     public CraftingAltarT1Menu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -27,7 +27,7 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
         checkContainerSize(inv, 10);
         blockEntity = ((CraftingAltarT1BlockEntity) entity);
         this.level = inv.player.level();
-        this.data = data; //35:14
+        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -44,6 +44,7 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(iItemHandler, 8 , 66, 53));
             this.addSlot(new SlotItemHandler(iItemHandler, 9 , 123, 34));
         }));
+
 
         addDataSlots(data);
     }
@@ -65,6 +66,9 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
 
     // THIS YOU HAVE TO DEFINE!
     private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must be the number of slots you have!
+
+
+
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
@@ -107,7 +111,7 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i *18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
             }
         }
     }

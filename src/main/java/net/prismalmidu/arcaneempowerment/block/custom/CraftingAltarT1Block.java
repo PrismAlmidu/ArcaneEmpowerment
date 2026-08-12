@@ -67,14 +67,12 @@ public class CraftingAltarT1Block extends BaseEntityBlock {
         return new CraftingAltarT1BlockEntity(pPos, pState);
     }
 
-    //@Override
-    //public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-       // if(pLevel.isClientSide()) {
-       //     return null;
-       // }
-
-
-        //return createTickerHelper(pBlockEntityType, ModBlockEntities.CRAFTING_ALTAR_T1_BE.get(),
-                //(pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick(pLevel1, pPos, pState1));
-    //}
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if(pLevel.isClientSide()) {
+            return null;
+        }
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.CRAFTING_ALTAR_T1_BE.get(),
+                (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick(pLevel1, pPos, pState1));
+    }
 }
