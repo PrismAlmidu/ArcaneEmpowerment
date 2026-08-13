@@ -154,6 +154,14 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
         ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
 
         this.itemHandler.extractItem(INPUT_SLOT_1, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_2, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_3, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_4, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_5, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_6, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_7, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_8, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_9, 1, false);
 
         this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(resultItem.getItem(),
                 this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + resultItem.getCount()));
