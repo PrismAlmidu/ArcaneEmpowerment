@@ -1,0 +1,9 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "ingredients": [
+    {"item": "arcaneempowerment:arcanium_shard"}
+  ],
+  "output": {
+    "item": "arcaneempowerment:liquid_mana_bucket"
+  }
+}

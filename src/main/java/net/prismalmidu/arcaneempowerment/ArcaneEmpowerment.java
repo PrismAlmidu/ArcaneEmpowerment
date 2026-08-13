@@ -18,6 +18,7 @@ import net.prismalmidu.arcaneempowerment.block.ModBlocks;
 import net.prismalmidu.arcaneempowerment.block.entity.ModBlockEntities;
 import net.prismalmidu.arcaneempowerment.item.ModCreativeModeTabs;
 import net.prismalmidu.arcaneempowerment.item.ModItems;
+import net.prismalmidu.arcaneempowerment.recipe.ModRecipes;
 import net.prismalmidu.arcaneempowerment.screen.CraftingAltarT1Screen;
 import net.prismalmidu.arcaneempowerment.screen.ModMenuTypes;
 import org.slf4j.Logger;
@@ -42,6 +43,8 @@ public class ArcaneEmpowerment
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
