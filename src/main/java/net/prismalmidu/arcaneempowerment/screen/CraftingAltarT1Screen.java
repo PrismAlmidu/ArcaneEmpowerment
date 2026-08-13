@@ -33,4 +33,19 @@ public class CraftingAltarT1Screen extends AbstractContainerScreen<CraftingAltar
         super.render(pGuiGraphics, mouseX, mouseY, delta);
         renderTooltip(pGuiGraphics, mouseX, mouseY);
     }
+
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderLabels(guiGraphics, mouseX, mouseY);
+
+        // Call the clean getters instead of raw data array requests
+        int currentEnergy = this.menu.getClientEnergy();
+        int maxEnergy = this.menu.getClientMaxEnergy();
+
+        String energyString = currentEnergy + " / " + maxEnergy + " Mana";
+
+        // Renders the string cleanly inside the GUI layout boundary box
+        guiGraphics.drawString(this.font, energyString, 90, 60, 0x000000, false);
+    }
 }

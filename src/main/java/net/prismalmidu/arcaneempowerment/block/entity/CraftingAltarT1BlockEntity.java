@@ -3,7 +3,11 @@ package net.prismalmidu.arcaneempowerment.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -20,11 +24,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.prismalmidu.arcaneempowerment.item.ModItems;
 import net.prismalmidu.arcaneempowerment.recipe.CraftingAltarRecipe;
 import net.prismalmidu.arcaneempowerment.screen.CraftingAltarT1Menu;
+import net.prismalmidu.arcaneempowerment.util.ModEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,9 +66,24 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
+    private LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
+
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 78;
+
+    private final ModEnergyStorage ENERGY_STORAGE = createEnergyStorage();
+
+    private ModEnergyStorage createEnergyStorage() {
+        return new ModEnergyStorage(512, 256) {
+            @Override
+            public void onEnergyChanged() {
+                setChanged();;
+                getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        };
+    }
+
 
     public CraftingAltarT1BlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.CRAFTING_ALTAR_T1_BE.get(), pPos, pBlockState);
@@ -72,6 +93,10 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
                 return switch (pIndex) {
                     case 0 -> CraftingAltarT1BlockEntity.this.progress;
                     case 1 -> CraftingAltarT1BlockEntity.this.maxProgress;
+                    // Split current energy into lower 16 bits
+                    case 2 -> CraftingAltarT1BlockEntity.this.ENERGY_STORAGE.getEnergyStored() & 0xFFFF;
+                    // Split current energy into upper 16 bits
+                    case 3 -> (CraftingAltarT1BlockEntity.this.ENERGY_STORAGE.getEnergyStored() >> 16) & 0xFFFF;
                     default -> 0;
                 };
             }
@@ -81,14 +106,20 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
                 switch (pIndex) {
                     case 0 -> CraftingAltarT1BlockEntity.this.progress = pValue;
                     case 1 -> CraftingAltarT1BlockEntity.this.maxProgress = pValue;
+                    // Client-side synchronization buffer updates (Handled via network syncing packets)
+                    case 2, 3 -> { }
                 }
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 4;
             }
         };
+    }
+
+    public IEnergyStorage getEnergyStorage() {
+        return this.ENERGY_STORAGE;
     }
 
     public void drops() {
@@ -112,6 +143,9 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if(cap == ForgeCapabilities.ENERGY) {
+            return lazyEnergyHandler.cast();
+        }
         if(cap == ForgeCapabilities.ITEM_HANDLER) {
             return lazyItemHandler.cast();
         }
@@ -122,17 +156,20 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
+        lazyEnergyHandler.invalidate();
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.putInt("energy", ENERGY_STORAGE.getEnergyStored());
         super.saveAdditional(pTag);
     }
 
@@ -140,18 +177,41 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
     public void load(CompoundTag pTag) {
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+        ENERGY_STORAGE.setEnergy(pTag.getInt("energy"));
     }
 
+    private float energyCounter = 0.0f;
+
     public void tick(Level Level, BlockPos pPos, BlockState pState) {
+        fillUpOnEnergy();
 
         if (isOutputSlotEmptyOrReceivable() && hasRecipe()) {
             craftItem();
         }
     }
 
+
+        private void fillUpOnEnergy() {
+            // Check if you have space for energy first
+            if (ENERGY_STORAGE.getEnergyStored() < ENERGY_STORAGE.getMaxEnergyStored()) {
+                energyCounter += 0.4f;
+
+                if (energyCounter >= 1.0f) {
+                    int energyToAdd = (int) energyCounter; // Extracts whole numbers (1 or more)
+                    ENERGY_STORAGE.receiveEnergy(energyToAdd, false);
+                    energyCounter -= energyToAdd; // Keeps the leftover decimal (e.g., 0.2)
+                }
+            } else {
+                energyCounter = 0.0f; // Reset if full
+            }
+        }
+
+
     private void craftItem() {
         Optional<CraftingAltarRecipe> recipe = getCurrentRecipe();
         ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
+        this.ENERGY_STORAGE.extractEnergy(recipe.get().getEnergyRequirement(), false);
 
         this.itemHandler.extractItem(INPUT_SLOT_1, 1, false);
         this.itemHandler.extractItem(INPUT_SLOT_2, 1, false);
@@ -165,6 +225,8 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
 
         this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(resultItem.getItem(),
                 this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + resultItem.getCount()));
+
+        setChanged();
     }
 
     private boolean hasRecipe() {
@@ -176,7 +238,17 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
         ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
 
         return canInsertAmountIntoOutputSlot(resultItem.getCount())
-                && canInsertItemIntoOutputSlot(resultItem.getItem()); //could replace null with getLevel().registryAccess()?
+                && canInsertItemIntoOutputSlot(resultItem.getItem()) && hasEnoughEnergyToCraft();
+    }
+
+    private boolean hasEnoughEnergyToCraft() {
+        Optional<CraftingAltarRecipe> recipe = getCurrentRecipe();
+        if (recipe.isEmpty()) {
+            return false;
+        }
+
+        // Dynamic cost check against the active JSON recipe requirements
+        return this.ENERGY_STORAGE.getEnergyStored() >= recipe.get().getEnergyRequirement();
     }
 
     private Optional<CraftingAltarRecipe> getCurrentRecipe() {
@@ -204,4 +276,18 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
     }
 
 
+    @Override
+    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        super.onDataPacket(net, pkt);
+    }
 }

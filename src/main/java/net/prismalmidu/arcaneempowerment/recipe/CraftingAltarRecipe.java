@@ -24,16 +24,20 @@ public class CraftingAltarRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final int width;
     private final int height;
+    private final int energyRequirement; // 1. Store the energy cost
 
-    // Optional: Add custom requirements here later, such as energy costs
-    // private final int energyRequirement;
-
-    public CraftingAltarRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputItems, int width, int height) {
+    public CraftingAltarRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputItems, int width, int height, int energyRequirement) {
         this.id = id;
         this.output = output;
         this.inputItems = inputItems;
         this.width = width;
         this.height = height;
+        this.energyRequirement = energyRequirement;
+    }
+
+    // 2. Custom getter to fetch the energy requirement inside your BlockEntity
+    public int getEnergyRequirement() {
+        return this.energyRequirement;
     }
 
     @Override
@@ -138,6 +142,10 @@ public class CraftingAltarRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public CraftingAltarRecipe fromJson(ResourceLocation id, JsonObject json) {
+            // 3. Read the energy field. Using GsonHelper.getAsInt allows optional defaults if desired,
+            // but this forces it to be required or default to 0 if absent.
+            int energyRequirement = GsonHelper.getAsInt(json, "energy", 0);
+
             // 1. Read pattern lines
             JsonArray patternArray = GsonHelper.getAsJsonArray(json, "pattern");
             String[] pattern = new String[patternArray.size()];
@@ -185,7 +193,8 @@ public class CraftingAltarRecipe implements Recipe<SimpleContainer> {
             }
 
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            return new CraftingAltarRecipe(id, output, inputs, width, height);
+            // Pass energyRequirement to constructor
+            return new CraftingAltarRecipe(id, output, inputs, width, height, energyRequirement);
         }
 
         @Override
@@ -199,7 +208,10 @@ public class CraftingAltarRecipe implements Recipe<SimpleContainer> {
             }
 
             ItemStack output = buf.readItem();
-            return new CraftingAltarRecipe(id, output, inputs, width, height);
+
+            // 4. Read the integer requirement from the network buffer packet
+            int energyRequirement = buf.readVarInt();
+            return new CraftingAltarRecipe(id, output, inputs, width, height, energyRequirement);
         }
 
         @Override
@@ -211,6 +223,8 @@ public class CraftingAltarRecipe implements Recipe<SimpleContainer> {
                 ing.toNetwork(buf);
             }
             buf.writeItemStack(recipe.getResultItem(null), false);
+            // 5. Write the integer requirement to the network buffer packet
+            buf.writeVarInt(recipe.getEnergyRequirement());
         }
     }
 }

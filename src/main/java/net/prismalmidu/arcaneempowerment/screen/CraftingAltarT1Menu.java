@@ -19,7 +19,7 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public CraftingAltarT1Menu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv,inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(pContainerId, inv,inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
     public CraftingAltarT1Menu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -120,5 +120,24 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
+    }
+    public int getProgress() {
+        return this.data.get(0);
+    }
+
+    public int getMaxProgress() {
+        return this.data.get(1);
+    }
+
+    public int getClientEnergy() {
+        int lower = this.data.get(2) & 0xFFFF;
+        int upper = this.data.get(3) & 0xFFFF;
+        return lower | (upper << 16); // Glues the upper and lower short values back into a single full integer
+    }
+
+    public int getClientMaxEnergy() {
+        // Since your max energy is currently statically set to 512 in the block entity,
+        // you can return it directly here, or add slots 4 and 5 if it becomes upgrades-based later!
+        return 512;
     }
 }
