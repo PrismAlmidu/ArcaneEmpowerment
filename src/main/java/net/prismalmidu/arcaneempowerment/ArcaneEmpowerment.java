@@ -2,6 +2,8 @@ package net.prismalmidu.arcaneempowerment;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,6 +18,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.prismalmidu.arcaneempowerment.block.ModBlocks;
 import net.prismalmidu.arcaneempowerment.block.entity.ModBlockEntities;
+import net.prismalmidu.arcaneempowerment.fluid.ModFluidTypes;
+import net.prismalmidu.arcaneempowerment.fluid.ModFluids;
 import net.prismalmidu.arcaneempowerment.item.ModCreativeModeTabs;
 import net.prismalmidu.arcaneempowerment.item.ModItems;
 import net.prismalmidu.arcaneempowerment.recipe.ModRecipes;
@@ -40,6 +44,9 @@ public class ArcaneEmpowerment
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+
+        ModFluidTypes.register(modEventBus);
+        ModFluids.register(modEventBus);
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
@@ -75,6 +82,9 @@ public class ArcaneEmpowerment
         public static void onClientSetup(FMLClientSetupEvent event) {
 
             MenuScreens.register(ModMenuTypes.CRAFTING_ALTAR_T1_MENU.get(), CraftingAltarT1Screen::new);
+
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_LIQUID_MANA.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_LIQUID_MANA.get(), RenderType.translucent());
         }
     }
 }
