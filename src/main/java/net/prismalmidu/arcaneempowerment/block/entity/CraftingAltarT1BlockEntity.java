@@ -27,6 +27,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.prismalmidu.arcaneempowerment.block.ModBlocks;
+import net.prismalmidu.arcaneempowerment.block.custom.AccumulatorCoreBlock;
 import net.prismalmidu.arcaneempowerment.item.ModItems;
 import net.prismalmidu.arcaneempowerment.recipe.CraftingAltarRecipe;
 import net.prismalmidu.arcaneempowerment.screen.CraftingAltarT1Menu;
@@ -78,12 +80,18 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
         return new ModEnergyStorage(512, 256) {
             @Override
             public void onEnergyChanged() {
-                setChanged();;
-                getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+                setChanged();
+                if (getLevel() != null) {
+                    getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+                }
             }
         };
     }
 
+    // NEW FIELDS FOR ACCUMULATOR CORE DETECTION
+    private int scanTimer = 0;        // Keeps track of ticks to optimize scanning performance
+    private int activeCoresCount = 0; // Caches the total number of valid accumulator cores found (capped at 8)
+    private float energyCounter = 0.0f;
 
     public CraftingAltarT1BlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.CRAFTING_ALTAR_T1_BE.get(), pPos, pBlockState);
@@ -97,6 +105,7 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
                     case 2 -> CraftingAltarT1BlockEntity.this.ENERGY_STORAGE.getEnergyStored() & 0xFFFF;
                     // Split current energy into upper 16 bits
                     case 3 -> (CraftingAltarT1BlockEntity.this.ENERGY_STORAGE.getEnergyStored() >> 16) & 0xFFFF;
+                    case 4 -> CraftingAltarT1BlockEntity.this.activeCoresCount;
                     default -> 0;
                 };
             }
@@ -113,7 +122,7 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
 
             @Override
             public int getCount() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -127,8 +136,9 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
-
-        Containers.dropContents(this.level, this.worldPosition, inventory);
+        if (this.level != null) {
+            Containers.dropContents(this.level, this.worldPosition, inventory);
+        }
     }
 
     @Override
@@ -180,9 +190,20 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
         ENERGY_STORAGE.setEnergy(pTag.getInt("energy"));
     }
 
-    private float energyCounter = 0.0f;
+    /**
+     * Ticking logic for the Altar. Checks for structures periodically and increments energy.
+     */
+    public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
+        if (!pLevel.isClientSide()) {
+            // OPTIMIZATION: Only search the massive 16-block radius (35,937 blocks) once per second
+            this.scanTimer++;
+            if (this.scanTimer >= 20) {
+                this.activeCoresCount = countAccumulatorCores(pLevel, pPos, 16);
+                this.scanTimer = 0;
+            }
+        }
 
-    public void tick(Level Level, BlockPos pPos, BlockState pState) {
+        // Handle energy generation per tick using the cached cores modifier
         fillUpOnEnergy();
 
         if (isOutputSlotEmptyOrReceivable() && hasRecipe()) {
@@ -190,27 +211,56 @@ public class CraftingAltarT1BlockEntity extends BlockEntity implements MenuProvi
         }
     }
 
+    /**
+     * Scans a cubic radius centered around the altar for Accumulator Cores with a blockstate value of 2.
+     * Stops checking immediately once the 8 core target is reached.
+     */
+    private int countAccumulatorCores(Level world, BlockPos centerPos, int radius) {
+        int count = 0;
+        Iterable<BlockPos> scanArea = BlockPos.betweenClosed(
+                centerPos.offset(-radius, -radius, -radius),
+                centerPos.offset(radius, radius, radius)
+        );
 
-        private void fillUpOnEnergy() {
-            // Check if you have space for energy first
-            if (ENERGY_STORAGE.getEnergyStored() < ENERGY_STORAGE.getMaxEnergyStored()) {
-                energyCounter += 0.4f;
+        for (BlockPos targetPos : scanArea) {
+            BlockState state = world.getBlockState(targetPos);
 
-                if (energyCounter >= 1.0f) {
-                    int energyToAdd = (int) energyCounter; // Extracts whole numbers (1 or more)
-                    ENERGY_STORAGE.receiveEnergy(energyToAdd, false);
-                    energyCounter -= energyToAdd; // Keeps the leftover decimal (e.g., 0.2)
+            if (state.is(ModBlocks.ACCUMULATOR_CORE.get())) {
+                if (state.hasProperty(AccumulatorCoreBlock.STATE) && state.getValue(AccumulatorCoreBlock.STATE) == 2) {
+                    count++;
+                    if (count >= 8) {
+                        return 8; // Performance win: break out early if we found all 8 cores
+                    }
                 }
-            } else {
-                energyCounter = 0.0f; // Reset if full
             }
         }
+        return count;
+    }
 
+    /**
+     * Generates internal FE capacity using ambient or multiblock amplified generation values.
+     */
+    private void fillUpOnEnergy() {
+        if (ENERGY_STORAGE.getEnergyStored() < ENERGY_STORAGE.getMaxEnergyStored()) {
+            // Base generation is 0.4f, amplified by +0.1f per active core found
+            float currentGenerationRate = 0.4f + (0.1f * this.activeCoresCount);
+            energyCounter += currentGenerationRate;
+
+            if (energyCounter >= 1.0f) {
+                int energyToAdd = (int) energyCounter;
+                ENERGY_STORAGE.receiveEnergy(energyToAdd, false);
+                energyCounter -= energyToAdd;
+            }
+        } else {
+            energyCounter = 0.0f;
+        }
+    }
 
     private void craftItem() {
         Optional<CraftingAltarRecipe> recipe = getCurrentRecipe();
-        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+        if (recipe.isEmpty()) return;
 
+        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
         this.ENERGY_STORAGE.extractEnergy(recipe.get().getEnergyRequirement(), false);
 
         this.itemHandler.extractItem(INPUT_SLOT_1, 1, false);

@@ -46,6 +46,13 @@ public class CraftingAltarT1Screen extends AbstractContainerScreen<CraftingAltar
         String energyString = currentEnergy + " / " + maxEnergy + " Mana";
 
         // Renders the string cleanly inside the GUI layout boundary box
-        guiGraphics.drawString(this.font, energyString, 90, 60, 0x000000, false);
+        guiGraphics.drawString(this.font, energyString, 90, 20, 0x000000, false);
+
+        // NEW: Fetch and render the active core tracking count from the menu
+        int activeCores = this.menu.getActiveCoresCount();
+        String coresString = "Active Cores: " + activeCores + " / 8";
+
+        // Rendered slightly above the energy bar text line (y=45) using a dark gray hex color code
+        guiGraphics.drawString(this.font, coresString, 75, 72, 0x000000, false);
     }
 }

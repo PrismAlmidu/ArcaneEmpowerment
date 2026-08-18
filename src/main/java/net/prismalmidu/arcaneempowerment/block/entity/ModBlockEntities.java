@@ -17,6 +17,12 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(CraftingAltarT1BlockEntity::new,
                             ModBlocks.CRAFTING_ALTAR_T1.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<AccumulatorCoreBlockEntity>> ACCUMULATOR_CORE_BE =
+            BLOCK_ENTITIES.register("accumulator_core_be", () ->
+                    BlockEntityType.Builder.of(AccumulatorCoreBlockEntity::new,
+                            ModBlocks.ACCUMULATOR_CORE.get()).build(null));
+
+
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

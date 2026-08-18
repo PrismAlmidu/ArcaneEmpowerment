@@ -19,7 +19,7 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public CraftingAltarT1Menu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv,inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
+        this(pContainerId, inv,inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
     }
 
     public CraftingAltarT1Menu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -140,4 +140,10 @@ public class CraftingAltarT1Menu extends AbstractContainerMenu {
         // you can return it directly here, or add slots 4 and 5 if it becomes upgrades-based later!
         return 512;
     }
+
+    public int getActiveCoresCount() {
+        // Fetches the synchronized array property data index directly
+        return this.data.get(4);
+    }
+
 }

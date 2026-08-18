@@ -58,6 +58,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.MODIFIER_WATERBREATHING_BLOCK.get());
 
                         pOutput.accept(ModBlocks.CRAFTING_ALTAR_T1.get());
+
+                        pOutput.accept(ModBlocks.ACCUMULATOR_CORE.get());
                     })
                     .build());
 

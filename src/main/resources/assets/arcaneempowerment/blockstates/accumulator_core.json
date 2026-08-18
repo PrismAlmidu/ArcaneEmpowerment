@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "state=0": { "model": "arcaneempowerment:block/accumulator_core_0"},
+    "state=1": { "model": "arcaneempowerment:block/accumulator_core_1"},
+    "state=2": { "model": "arcaneempowerment:block/accumulator_core_2"}
+  }
+}

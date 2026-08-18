@@ -11,6 +11,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.prismalmidu.arcaneempowerment.ArcaneEmpowerment;
+import net.prismalmidu.arcaneempowerment.block.custom.AccumulatorCoreBlock;
 import net.prismalmidu.arcaneempowerment.fluid.ModFluids;
 import net.prismalmidu.arcaneempowerment.item.ModItems;
 import net.prismalmidu.arcaneempowerment.block.custom.CraftingAltarT1Block;
@@ -86,6 +87,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> CRAFTING_ALTAR_T1 = registerBlock("crafting_altar_t1",
             () -> new CraftingAltarT1Block(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).noOcclusion()));
+
+    public static final RegistryObject<Block> ACCUMULATOR_CORE = registerBlock("accumulator_core",
+            () -> new AccumulatorCoreBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).noOcclusion()));
 
     public static final RegistryObject<LiquidBlock> LIQUID_MANA_BLOCK = BLOCKS.register("liquid_mana_block",
             () -> new LiquidBlock(ModFluids.SOURCE_LIQUID_MANA, BlockBehaviour.Properties.copy(Blocks.WATER)
