@@ -24,6 +24,7 @@ import net.prismalmidu.arcaneempowerment.item.ModCreativeModeTabs;
 import net.prismalmidu.arcaneempowerment.item.ModItems;
 import net.prismalmidu.arcaneempowerment.recipe.ModRecipes;
 import net.prismalmidu.arcaneempowerment.screen.CraftingAltarT1Screen;
+import net.prismalmidu.arcaneempowerment.screen.CraftingAltarT2Screen;
 import net.prismalmidu.arcaneempowerment.screen.ModMenuTypes;
 import org.slf4j.Logger;
 
@@ -82,6 +83,7 @@ public class ArcaneEmpowerment
         public static void onClientSetup(FMLClientSetupEvent event) {
 
             MenuScreens.register(ModMenuTypes.CRAFTING_ALTAR_T1_MENU.get(), CraftingAltarT1Screen::new);
+            MenuScreens.register(ModMenuTypes.CRAFTING_ALTAR_T2_MENU.get(), CraftingAltarT2Screen::new);
 
             ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_LIQUID_MANA.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_LIQUID_MANA.get(), RenderType.translucent());

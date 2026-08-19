@@ -81,7 +81,12 @@ public class AccumulatorCoreBlockEntity extends BlockEntity {
 
         for (BlockPos targetPos : scanArea) {
             // Replace 'ModBlocks.CRAFTING_ALTAR_T1.get()' with your actual block reference registry object/variable
-            if (world.getBlockState(targetPos).is(ModBlocks.CRAFTING_ALTAR_T1.get())) {
+            if (world.getBlockState(targetPos).is(ModBlocks.CRAFTING_ALTAR_T1.get()) ||
+                    world.getBlockState(targetPos).is(ModBlocks.CRAFTING_ALTAR_T2.get())
+            )
+
+
+            {
                 return true; // Match found, break search early
             }
         }
