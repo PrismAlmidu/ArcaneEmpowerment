@@ -26,6 +26,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(AccumulatorCoreBlockEntity::new,
                             ModBlocks.ACCUMULATOR_CORE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<VoidMinerT2BlockEntity>> VOID_MINER_T2_BE =
+            BLOCK_ENTITIES.register("void_miner_t2_be", () ->
+                    BlockEntityType.Builder.of(VoidMinerT2BlockEntity::new,
+                            ModBlocks.VOID_MINER_T2.get()).build(null));
+
 
 
     public static void register(IEventBus eventBus) {

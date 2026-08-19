@@ -60,6 +60,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.CRAFTING_ALTAR_T1.get());
                         pOutput.accept(ModBlocks.CRAFTING_ALTAR_T2.get());
 
+                        pOutput.accept(ModBlocks.VOID_MINER_T2.get());
+
                         pOutput.accept(ModBlocks.ACCUMULATOR_CORE.get());
                     })
                     .build());

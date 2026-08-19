@@ -19,6 +19,9 @@ public class ModMenuTypes {
     public static final RegistryObject<MenuType<CraftingAltarT2Menu>> CRAFTING_ALTAR_T2_MENU =
             registerMenuType("crafting_altar_t2_menu", CraftingAltarT2Menu::new);
 
+    public static final RegistryObject<MenuType<VoidMinerT2Menu>> VOID_MINER_T2_MENU =
+            registerMenuType("void_miner_t2_menu", VoidMinerT2Menu::new);
+
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }

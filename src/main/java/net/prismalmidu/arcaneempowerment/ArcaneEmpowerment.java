@@ -26,6 +26,7 @@ import net.prismalmidu.arcaneempowerment.recipe.ModRecipes;
 import net.prismalmidu.arcaneempowerment.screen.CraftingAltarT1Screen;
 import net.prismalmidu.arcaneempowerment.screen.CraftingAltarT2Screen;
 import net.prismalmidu.arcaneempowerment.screen.ModMenuTypes;
+import net.prismalmidu.arcaneempowerment.screen.VoidMinerT2Screen;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -84,6 +85,8 @@ public class ArcaneEmpowerment
 
             MenuScreens.register(ModMenuTypes.CRAFTING_ALTAR_T1_MENU.get(), CraftingAltarT1Screen::new);
             MenuScreens.register(ModMenuTypes.CRAFTING_ALTAR_T2_MENU.get(), CraftingAltarT2Screen::new);
+
+            MenuScreens.register(ModMenuTypes.VOID_MINER_T2_MENU.get(), VoidMinerT2Screen::new);
 
             ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_LIQUID_MANA.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_LIQUID_MANA.get(), RenderType.translucent());
