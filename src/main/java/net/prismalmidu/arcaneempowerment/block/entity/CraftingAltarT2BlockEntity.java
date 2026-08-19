@@ -18,6 +18,8 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -71,6 +73,8 @@ public class CraftingAltarT2BlockEntity extends BlockEntity implements MenuProvi
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 78;
+
+    private boolean isComplete = false;
 
     private final ModEnergyStorage ENERGY_STORAGE = createEnergyStorage();
 
@@ -192,13 +196,21 @@ public class CraftingAltarT2BlockEntity extends BlockEntity implements MenuProvi
      * Ticking logic for the Altar. Checks for structures periodically and increments energy.
      */
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
-        if (!pLevel.isClientSide()) {
-            // OPTIMIZATION: Only search the massive 16-block radius (35,937 blocks) once per second
-            this.scanTimer++;
-            if (this.scanTimer >= 20) {
-                this.activeCoresCount = countAccumulatorCores(pLevel, pPos, 16);
-                this.scanTimer = 0;
-            }
+        // Essential Game Rule: Energy generation and world scanning must strictly run on the Server side.
+        if (pLevel.isClientSide()) {
+            return;
+        }
+
+        // OPTIMIZATION: Check the multiblock base AND search the massive 16-block radius once per second
+        this.scanTimer++;
+        if (this.scanTimer >= 20) {
+            // 1. First, check if the 3x3 platform underneath is properly constructed
+            validateStructure(pLevel, pPos, pState);
+
+            // 2. Next, count the floating active cores around the structure
+            this.activeCoresCount = countAccumulatorCores(pLevel, pPos, 16);
+
+            this.scanTimer = 0;
         }
 
         // Handle energy generation per tick using the cached cores modifier
@@ -214,6 +226,11 @@ public class CraftingAltarT2BlockEntity extends BlockEntity implements MenuProvi
      * Stops checking immediately once the 8 core target is reached.
      */
     private int countAccumulatorCores(Level world, BlockPos centerPos, int radius) {
+        // Performance Gate: If the base structure underneath isn't even built, don't bother searching thousands of blocks!
+        if (!this.isComplete) {
+            return 0;
+        }
+
         int count = 0;
         Iterable<BlockPos> scanArea = BlockPos.betweenClosed(
                 centerPos.offset(-radius, -radius, -radius),
@@ -235,10 +252,211 @@ public class CraftingAltarT2BlockEntity extends BlockEntity implements MenuProvi
         return count;
     }
 
+    private boolean checkBlock(Level world, BlockPos pos, Block expectedBlock) {
+        return world.getBlockState(pos).is(expectedBlock);
+    }
+
+    /**
+     * Validates the 3x3 platform underneath the block entity controller.
+     */
+    public void validateStructure(Level world, BlockPos controllerPos, BlockState currentState) {
+        // Explicitly check all 9 relative positions directly underneath (y = -1)
+        boolean isValid =
+                // Row 1 (z = -5)
+                checkBlock(world, controllerPos.offset(-5, -1, -5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-4, -1, -5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, -1, -5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(4, -1, -5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(5, -1, -5), Blocks.STONE_BRICKS) &&
+
+                // Row 2 (z = -4)
+                checkBlock(world, controllerPos.offset(-5, -1, -4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-4, -1, -4), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -4), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, -4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-1, -1, -4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(0, -1, -4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-1, -1, -4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-2, -1, -4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -4), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, -4), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-5, -1, -4), Blocks.STONE_BRICKS) &&
+
+                // Row 3 (z = -3)
+                checkBlock(world, controllerPos.offset(-5, -1, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-4, -1, -3), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, -3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, -3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(0, -1, -3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, -3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, -3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, -3), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-5, -1, -3), Blocks.STONE_BRICKS) &&
+
+                // Row 4 (z = -2)
+                checkBlock(world, controllerPos.offset(-4, -1, -2), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, -2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, -2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(0, -1, -2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, -2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, -2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, -2), Blocks.STONE_BRICKS) &&
+
+                // Row 5 (z = -1)
+                checkBlock(world, controllerPos.offset(-4, -1, -1), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, -1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, -1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(0, -1, -1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, -1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, -1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, -1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, -1), Blocks.STONE_BRICKS) &&
+
+                // Row 6 (z = 0)
+                checkBlock(world, controllerPos.offset(-4, -1, 0), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 0), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 0), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 0), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(0, -1, 0), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 0), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 0), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 0), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, 0), Blocks.STONE_BRICKS) &&
+
+                // Row 7 (z = 1)
+                checkBlock(world, controllerPos.offset(-4, -1, 1), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(0, -1, 1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 1), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, 1), Blocks.STONE_BRICKS) &&
+
+                // Row 8 (z = 2)
+                checkBlock(world, controllerPos.offset(-4, -1, 2), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(0, -1, 2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 2), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, 2), Blocks.STONE_BRICKS) &&
+
+                // Row 9 (z = 3)
+                checkBlock(world, controllerPos.offset(-5, -1, 3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-4, -1, 3), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(0, -1, 3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 3), Blocks.BLACKSTONE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, 3), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-5, -1, 3), Blocks.STONE_BRICKS) &&
+
+                // Row 10 (z = 4)
+                checkBlock(world, controllerPos.offset(-5, -1, 4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-4, -1, 4), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 4), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(0, -1, 4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-1, -1, 4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-2, -1, 4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 4), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-4, -1, 4), Blocks.DIORITE) &&
+                checkBlock(world, controllerPos.offset(-5, -1, 4), Blocks.STONE_BRICKS) &&
+
+                // Row 11 (z = 5)
+                checkBlock(world, controllerPos.offset(-5, -1, 5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-4, -1, 5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, -1, 5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, -1, 5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(4, -1, 5), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(5, -1, 5), Blocks.STONE_BRICKS) &&
+
+                // Layer 2 (y = 0)
+                checkBlock(world, controllerPos.offset(-4, 0, -4), Blocks.POLISHED_ANDESITE) &&
+                checkBlock(world, controllerPos.offset(4, 0, -4), Blocks.POLISHED_ANDESITE) &&
+                checkBlock(world, controllerPos.offset(-4, 0, 4), Blocks.POLISHED_ANDESITE) &&
+                checkBlock(world, controllerPos.offset(4, 0, 4), Blocks.POLISHED_ANDESITE) &&
+
+                // Layer 3 (y = 1)
+                checkBlock(world, controllerPos.offset(-4, 1, -4), Blocks.DIORITE_WALL) &&
+                checkBlock(world, controllerPos.offset(4, 1, -4), Blocks.DIORITE_WALL) &&
+                checkBlock(world, controllerPos.offset(-4, 1, 4), Blocks.DIORITE_WALL) &&
+                checkBlock(world, controllerPos.offset(4, 1, 4), Blocks.DIORITE_WALL) &&
+
+                // Layer 4 (y = 2)
+                checkBlock(world, controllerPos.offset(-4, 2, -4), Blocks.DIORITE_WALL) &&
+                checkBlock(world, controllerPos.offset(4, 2, -4), Blocks.DIORITE_WALL) &&
+                checkBlock(world, controllerPos.offset(-4, 2, 4), Blocks.DIORITE_WALL) &&
+                checkBlock(world, controllerPos.offset(4, 2, 4), Blocks.DIORITE_WALL) &&
+
+                // Layer 5 (y = 3)
+                checkBlock(world, controllerPos.offset(-4, 3, -4), Blocks.POLISHED_ANDESITE) &&
+                checkBlock(world, controllerPos.offset(-3, 3, -4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, 3, -4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(4, 3, -4), Blocks.POLISHED_ANDESITE) &&
+                checkBlock(world, controllerPos.offset(-4, 3, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(4, 3, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-4, 3, 3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(4, 3, 3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-4, 3, 4), Blocks.POLISHED_ANDESITE) &&
+                checkBlock(world, controllerPos.offset(-3, 3, 4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, 3, 4), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(4, 3, 4), Blocks.POLISHED_ANDESITE) &&
+
+
+                // Layer 6 (y = 4)
+                checkBlock(world, controllerPos.offset(-3, 4, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-2, 4, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-1, 4, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(1, 4, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(2, 4, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, 4, -3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, 4, -2), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, 4, -2), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, 4, -1), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, 4, -1), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, 4, 1), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, 4, 1), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, 4, 2), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, 4, 2), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-3, 4, 3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-2, 4, 3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(-1, 4, 3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(1, 4, 3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(2, 4, 3), Blocks.STONE_BRICKS) &&
+                checkBlock(world, controllerPos.offset(3, 4, 3), Blocks.STONE_BRICKS);
+
+        // Update the state flag
+        this.isComplete = isValid;
+
+        // Mark BlockEntity dirty so the game saves the structure state properly
+        setChanged();
+    }
+
     /**
      * Generates internal FE capacity using ambient or multiblock amplified generation values.
      */
     private void fillUpOnEnergy() {
+        // GATEKEEPER: Stop generation entirely if the multiblock structure is broken
+        if (!this.isComplete) {
+            this.energyCounter = 0.0f;
+            return;
+        }
+
         if (ENERGY_STORAGE.getEnergyStored() < ENERGY_STORAGE.getMaxEnergyStored()) {
             // Base generation is 0.4f, amplified by +0.1f per active core found
             float currentGenerationRate = 0.4f + (0.1f * this.activeCoresCount);
@@ -248,6 +466,9 @@ public class CraftingAltarT2BlockEntity extends BlockEntity implements MenuProvi
                 int energyToAdd = (int) energyCounter;
                 ENERGY_STORAGE.receiveEnergy(energyToAdd, false);
                 energyCounter -= energyToAdd;
+
+                // Alert the game that block entity energy values changed this tick
+                setChanged();
             }
         } else {
             energyCounter = 0.0f;
