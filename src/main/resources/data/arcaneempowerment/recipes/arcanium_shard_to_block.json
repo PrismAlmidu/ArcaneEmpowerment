@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "arcaneempowerment:arcanium_shard"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:arcanium_block"
+  }
+}

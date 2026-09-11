@@ -1,0 +1,25 @@
+# Gradle
+.gradle/
+build/
+
+# Generated run directories
+run/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# Logs and crash output
+logs/
+*.log
+hs_err_pid*.log
+replay_pid*.log

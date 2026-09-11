@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "arcaneempowerment:block/modifiertemplate",
+    "down": "arcaneempowerment:block/modifierbottom",
+    "up": "arcaneempowerment:block/modifiertop",
+    "north": "arcaneempowerment:block/modifiersaturation",
+    "south": "arcaneempowerment:block/modifiersaturation",
+    "east": "arcaneempowerment:block/modifiersaturation",
+    "west": "arcaneempowerment:block/modifiersaturation"
+  }
+}

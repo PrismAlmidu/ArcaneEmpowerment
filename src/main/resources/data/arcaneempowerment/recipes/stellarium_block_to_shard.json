@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients":[
+    {
+      "item": "arcaneempowerment:stellarium_block"
+    }
+  ],
+  "result": {
+    "item": "arcaneempowerment:stellarium_shard",
+    "count": 9
+  }
+}

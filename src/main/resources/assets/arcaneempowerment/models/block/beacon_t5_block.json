@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "arcaneempowerment:block/beaconsidet5",
+    "down": "arcaneempowerment:block/beaconbottomt5",
+    "up": "arcaneempowerment:block/beacontopt5",
+    "north": "arcaneempowerment:block/beaconsidet5",
+    "south": "arcaneempowerment:block/beaconsidet5",
+    "east": "arcaneempowerment:block/beaconsidet5",
+    "west": "arcaneempowerment:block/beaconsidet5"
+  }
+}

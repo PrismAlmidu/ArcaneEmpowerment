@@ -1,0 +1,16 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "pattern": [
+    "   ",
+    " C ",
+    "   "
+  ],
+  "key": {
+    "C": {
+      "item": "arcaneempowerment:arcanium_shard"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:liquid_mana_bucket"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 8,
+  "pattern": [
+    " C ",
+    "RCR",
+    " G "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "G": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:arcanium_shard"
+  }
+}

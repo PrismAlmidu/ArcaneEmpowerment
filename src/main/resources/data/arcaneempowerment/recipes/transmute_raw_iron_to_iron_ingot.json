@@ -1,0 +1,10 @@
+{
+  "type": "arcaneempowerment:transmutation",
+  "ingredient": {
+    "item": "minecraft:raw_iron"
+  },
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 1
+  }
+}

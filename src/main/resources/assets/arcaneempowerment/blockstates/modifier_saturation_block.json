@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "arcaneempowerment:block/modifier_saturation_block"
+    }
+  }
+}

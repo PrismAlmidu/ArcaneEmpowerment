@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "arcaneempowerment:block/minersidet4",
+    "down": "arcaneempowerment:block/minerbottomt4",
+    "up": "arcaneempowerment:block/minertopt4",
+    "north": "arcaneempowerment:block/minersidet4",
+    "south": "arcaneempowerment:block/minersidet4",
+    "east": "arcaneempowerment:block/minersidet4",
+    "west": "arcaneempowerment:block/minersidet4"
+  }
+}
