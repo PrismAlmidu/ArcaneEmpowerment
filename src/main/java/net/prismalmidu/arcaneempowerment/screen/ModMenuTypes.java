@@ -47,6 +47,9 @@ public class ModMenuTypes {
     public static final RegistryObject<MenuType<PerkShrineMenu>> PERK_SHRINE_MENU =
             registerMenuType("perk_shrine_menu", PerkShrineMenu::new);
 
+    public static final RegistryObject<MenuType<EldrinGeneratorMenu>> ELDRIN_GENERATOR_MENU =
+            registerMenuType("eldrin_generator_menu", EldrinGeneratorMenu::new);
+
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }

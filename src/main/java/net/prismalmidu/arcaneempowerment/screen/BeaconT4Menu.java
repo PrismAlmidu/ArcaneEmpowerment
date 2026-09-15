@@ -17,13 +17,13 @@ public class BeaconT4Menu extends AbstractContainerMenu {
 
     // Client-side constructor (Called automatically by Forge network pipeline)
     public BeaconT4Menu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(17));
+        this(id, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(24));
     }
 
     // Common server-side constructor
     public BeaconT4Menu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.BEACON_T4_MENU.get(), id);
-        checkContainerDataCount(data, 17);
+        checkContainerDataCount(data, 24);
         // FIXED: Safe cast check to prevent client-side NullPointerExceptions when chunks are loading
         if (entity instanceof BeaconT4BlockEntity beacon) {
             this.blockEntity = beacon;
@@ -56,6 +56,13 @@ public class BeaconT4Menu extends AbstractContainerMenu {
     public int getJumpBoost() {return this.data.get(14); }
     public int getInvisibility() {return this.data.get(15); }
     public int getFireResistance() {return this.data.get(16); }
+    public int getKnowledge() {return this.data.get(17); }
+    public int getFlying() {return this.data.get(18); }
+    public int getManaRegen() {return this.data.get(19); }
+    public int getSpellLongevity() {return this.data.get(20); }
+    public int getSpellPreserving() {return this.data.get(21); }
+    public int getSpellHaste() {return this.data.get(22); }
+    public int getSpellMight() {return this.data.get(23); }
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {

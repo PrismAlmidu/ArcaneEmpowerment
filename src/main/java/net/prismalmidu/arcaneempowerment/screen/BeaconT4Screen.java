@@ -70,6 +70,13 @@ public class BeaconT4Screen extends AbstractContainerScreen<BeaconT4Menu> {
         this.scrollPanel.addTextLine(Component.literal(" - Jump Boost level: " + this.menu.getJumpBoost()));
         this.scrollPanel.addTextLine(Component.literal(" - Invisibility level: " + this.menu.getInvisibility()));
         this.scrollPanel.addTextLine(Component.literal(" - Fire Resistance level: " + this.menu.getFireResistance()));
+        this.scrollPanel.addTextLine(Component.literal(" - Knowledge level: " + this.menu.getKnowledge()));
+        this.scrollPanel.addTextLine(Component.literal(" - Flying level: " + this.menu.getFlying()));
+        this.scrollPanel.addTextLine(Component.literal(" - Mana Regen level: " + this.menu.getManaRegen()));
+        this.scrollPanel.addTextLine(Component.literal(" - Spell Longevity level: " + this.menu.getSpellLongevity()));
+        this.scrollPanel.addTextLine(Component.literal(" - Spell Preserving level: " + this.menu.getSpellPreserving()));
+        this.scrollPanel.addTextLine(Component.literal(" - Spell Haste level: " + this.menu.getSpellHaste()));
+        this.scrollPanel.addTextLine(Component.literal(" - Spell Might level: " + this.menu.getSpellMight()));
     }
 
     @Override

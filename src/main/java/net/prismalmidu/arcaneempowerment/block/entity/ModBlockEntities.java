@@ -83,6 +83,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(BeaconT5BlockEntity::new,
                             ModBlocks.BEACON_T5.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<EldrinGeneratorBlockEntity>> ELDRIN_GENERATOR_BE =
+            BLOCK_ENTITIES.register("eldrin_generator_be", () ->
+                    BlockEntityType.Builder.of(EldrinGeneratorBlockEntity::new,
+                            ModBlocks.ELDRIN_GENERATOR.get()).build(null));
+
 
 
     public static void register(IEventBus eventBus) {

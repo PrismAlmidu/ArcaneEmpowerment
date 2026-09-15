@@ -84,6 +84,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.COLLECTOR_CRYSTAL.get());
 
                         pOutput.accept(ModBlocks.PERK_SHRINE.get());
+
+                        pOutput.accept(ModBlocks.ELDRIN_GENERATOR.get());
                     })
                     .build());
 

@@ -123,6 +123,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> BEACON_T5 = registerBlock("beacon_t5_block",
             () -> new BeaconT5Block(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).noOcclusion()));
 
+    public static final RegistryObject<Block> ELDRIN_GENERATOR = registerBlock("eldrin_generator_block",
+            () -> new EldrinGeneratorBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).noOcclusion()));
+
     public static final RegistryObject<LiquidBlock> LIQUID_MANA_BLOCK = BLOCKS.register("liquid_mana_block",
             () -> new LiquidBlock(ModFluids.SOURCE_LIQUID_MANA, BlockBehaviour.Properties.copy(Blocks.WATER)
                     .noLootTable()

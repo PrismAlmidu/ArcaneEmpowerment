@@ -1,5 +1,8 @@
 package net.prismalmidu.arcaneempowerment.block.entity;
 
+import com.energizedblast.mna_attributes.registry.MobEffectRegistry;
+import com.mna.effects.EffectInit;
+import dev.shadowsoffire.attributeslib.api.ALObjects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -52,6 +55,13 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
     private static final int JUMP_BOOST_COST_PER_BLOCK = 2;
     private static final int INVISIBILITY_COST_PER_BLOCK = 2;
     private static final int FIRE_RESISTANCE_COST_PER_BLOCK = 2;
+    private static final int KNOWLEDGE_COST_PER_BLOCK = 4;
+    private static final int FLYING_COST_PER_BLOCK = 5;
+    private static final int MANA_REGEN_COST_PER_BLOCK = 3;
+    private static final int SPELL_LONGEVITY_COST_PER_BLOCK = 3;
+    private static final int SPELL_PRESERVING_COST_PER_BLOCK = 4;
+    private static final int SPELL_HASTE_COST_PER_BLOCK = 4;
+    private static final int SPELL_MIGHT_COST_PER_BLOCK = 5;
 
 
     // Structure tracking fields
@@ -72,6 +82,13 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
     private int jumpboostLevel = 0;
     private int invisibilityLevel = 0;
     private int fireresistanceLevel = 0;
+    private int knowledgeLevel = 0;
+    private int flyingLevel = 0;
+    private int manaregenLevel = 0;
+    private int spelllongevityLevel = 0;
+    private int spellpreservingLevel = 0;
+    private int spellhasteLevel = 0;
+    private int spellmightLevel = 0;
     private int structureCheckCooldown = 0;
 
     // 2. Variable tracking fields for total cost
@@ -107,6 +124,13 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
                 case 14 -> jumpboostLevel;
                 case 15 -> invisibilityLevel;
                 case 16 -> fireresistanceLevel;
+                case 17 -> knowledgeLevel;
+                case 18 -> flyingLevel;
+                case 19 -> manaregenLevel;
+                case 20 -> spelllongevityLevel;
+                case 21 -> spellpreservingLevel;
+                case 22 -> spellhasteLevel;
+                case 23 -> spellmightLevel;
                 default -> 0;
             };
         }
@@ -131,12 +155,19 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
                 case 14 -> jumpboostLevel = value;
                 case 15 -> invisibilityLevel = value;
                 case 16 -> fireresistanceLevel = value;
+                case 17 -> knowledgeLevel = value;
+                case 18 -> flyingLevel = value;
+                case 19 -> manaregenLevel = value;
+                case 20 -> spelllongevityLevel = value;
+                case 21 -> spellpreservingLevel = value;
+                case 22 -> spellhasteLevel = value;
+                case 23 -> spellmightLevel = value;
             }
         }
 
         @Override
         public int getCount() {
-            return 17; // We are tracking 4 integer variables total
+            return 24; // We are tracking 24 integer variables total
         }
     };
 
@@ -174,7 +205,7 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
         if (!this.isStructureComplete()) return;
 
         // Quit early if no modifier levels are currently active
-        if (this.speedLevel == 0 && this.strengthLevel == 0 && this.resistanceLevel == 0 && this.regenerationLevel == 0 && this.saturationLevel == 0 && this.hasteLevel == 0 && this.healthboostLevel == 0 && this.waterbreathingLevel == 0 && this.dolphinsgraceLevel == 0 && this.luckLevel == 0 && this.slowfallingLevel == 0 && this.nightvisionLevel == 0 && this.jumpboostLevel == 0 && invisibilityLevel == 0 && this.fireresistanceLevel == 0) return;
+        if (this.speedLevel == 0 && this.strengthLevel == 0 && this.resistanceLevel == 0 && this.regenerationLevel == 0 && this.saturationLevel == 0 && this.hasteLevel == 0 && this.healthboostLevel == 0 && this.waterbreathingLevel == 0 && this.dolphinsgraceLevel == 0 && this.luckLevel == 0 && this.slowfallingLevel == 0 && this.nightvisionLevel == 0 && this.jumpboostLevel == 0 && invisibilityLevel == 0 && this.fireresistanceLevel == 0 && this.knowledgeLevel == 0 && this.flyingLevel == 0 && this.manaregenLevel == 0 && this.spelllongevityLevel == 0 && this.spellpreservingLevel == 0 && this.spellhasteLevel == 0 && this.spellmightLevel == 0) return;
 
         // 3. Extract the dynamically calculated cost instead of a static value
         if (energyStorage.extractEnergy(this.currentEnergyCost, true) >= this.currentEnergyCost) {
@@ -229,6 +260,27 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
                     if (fireresistanceLevel > 0) {
                         serverPlayer.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, fireresistanceLevel - 1, true, true));
                     }
+                    if (knowledgeLevel > 0) {
+                        serverPlayer.addEffect(new MobEffectInstance(ALObjects.MobEffects.KNOWLEDGE.get(), 200, knowledgeLevel - 1, true, true));
+                    }
+                    if (flyingLevel > 0) {
+                        serverPlayer.addEffect(new MobEffectInstance(ALObjects.MobEffects.FLYING.get(), 200, flyingLevel - 1, true, true));
+                    }
+                    if (manaregenLevel > 0) {
+                        serverPlayer.addEffect(new MobEffectInstance(EffectInit.MANA_REGEN.get(), 200, manaregenLevel - 1, true, true));
+                    }
+                    if (spelllongevityLevel > 0) {
+                        serverPlayer.addEffect(new MobEffectInstance(MobEffectRegistry.SPELL_LONGEVITY.get(), 200, spelllongevityLevel - 1, true, true));
+                    }
+                    if (spellpreservingLevel > 0) {
+                        serverPlayer.addEffect(new MobEffectInstance(MobEffectRegistry.SPELL_PRESERVING.get(), 200, spellpreservingLevel - 1, true, true));
+                    }
+                    if (spellhasteLevel > 0) {
+                        serverPlayer.addEffect(new MobEffectInstance(MobEffectRegistry.SPELL_HASTE.get(), 200, spellhasteLevel - 1, true, true));
+                    }
+                    if (spellmightLevel > 0) {
+                        serverPlayer.addEffect(new MobEffectInstance(MobEffectRegistry.SPELL_MIGHT.get(), 200, spellmightLevel - 1, true, true));
+                    }
 
                     setChanged();
                 }
@@ -239,7 +291,7 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
     // YOUR VALIDATION METHOD: Placed inside the tick lifecycle
     public void validateStructure(Level world, BlockPos controllerPos, BlockState currentState) {
         // 1. Reset counters to 0 before scanning
-        ModifierCounter counter = new ModifierCounter(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, BASE_ENERGY_COST);
+        ModifierCounter counter = new ModifierCounter(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, BASE_ENERGY_COST);
 
         boolean isValid =
                 //Layer 1 (y =-7)
@@ -800,7 +852,7 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
             this.currentEnergyCost = counter.totalCost;
 
             // Both duplicate lines are deleted, removing all warnings cleanly!
-            if (this.speedLevel != counter.speed || this.strengthLevel != counter.strength || this.resistanceLevel != counter.resistance || this.regenerationLevel != counter.regeneration || this.saturationLevel != counter.saturation || this.hasteLevel != counter.haste || this.healthboostLevel != counter.healthboost || this.waterbreathingLevel != counter.waterbreathing || this.dolphinsgraceLevel != counter.dolphinsgrace || this.luckLevel != counter.luck || this.slowfallingLevel != counter.slowfalling || this.nightvisionLevel != counter.nightvision || this.jumpboostLevel != counter.jumpboost || this.invisibilityLevel != counter.invisibility || this.fireresistanceLevel != counter.fireresistance) {
+            if (this.speedLevel != counter.speed || this.strengthLevel != counter.strength || this.resistanceLevel != counter.resistance || this.regenerationLevel != counter.regeneration || this.saturationLevel != counter.saturation || this.hasteLevel != counter.haste || this.healthboostLevel != counter.healthboost || this.waterbreathingLevel != counter.waterbreathing || this.dolphinsgraceLevel != counter.dolphinsgrace || this.luckLevel != counter.luck || this.slowfallingLevel != counter.slowfalling || this.nightvisionLevel != counter.nightvision || this.jumpboostLevel != counter.jumpboost || this.invisibilityLevel != counter.invisibility || this.fireresistanceLevel != counter.fireresistance || this.knowledgeLevel != counter.knowledge || this.flyingLevel != counter.flying || this.manaregenLevel != counter.manaregen || this.spelllongevityLevel != counter.spelllongevity || this.spellpreservingLevel != counter.spellpreserving || this. spellhasteLevel != counter.spellhaste || this.spellmightLevel != counter.spellmight) {
                 this.speedLevel = counter.speed;
                 this.strengthLevel = counter.strength;
                 this.resistanceLevel = counter.resistance;
@@ -816,6 +868,13 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
                 this.jumpboostLevel = counter.jumpboost;
                 this.invisibilityLevel = counter.invisibility;
                 this.fireresistanceLevel = counter.fireresistance;
+                this.knowledgeLevel = counter.knowledge;
+                this.flyingLevel = counter.flying;
+                this.manaregenLevel = counter.manaregen;
+                this.spelllongevityLevel = counter.spelllongevity;
+                this.spellpreservingLevel = counter.spellpreserving;
+                this.spellhasteLevel = counter.spellhaste;
+                this.spellmightLevel = counter.spellmight;
 
                 setChanged();
                 world.sendBlockUpdated(controllerPos, currentState, currentState, 3);
@@ -840,6 +899,13 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
                 this.jumpboostLevel = 0;
                 this.invisibilityLevel = 0;
                 this.fireresistanceLevel = 0;
+                this.knowledgeLevel = 0;
+                this.flyingLevel = 0;
+                this.manaregenLevel = 0;
+                this.spelllongevityLevel = 0;
+                this.spellpreservingLevel = 0;
+                this.spellhasteLevel = 0;
+                this.spellmightLevel = 0;
                 setChanged();
                 world.sendBlockUpdated(controllerPos, currentState, currentState, 3);
             }
@@ -867,9 +933,16 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
         int jumpboost;
         int invisibility;
         int fireresistance;
+        int knowledge;
+        int flying;
+        int manaregen;
+        int spelllongevity;
+        int spellpreserving;
+        int spellhaste;
+        int spellmight;
         int totalCost;
 
-        public ModifierCounter(int speed, int strength, int resistance, int regeneration, int saturation, int haste, int healthboost, int waterbreathing, int dolphinsgrace, int luck, int slowfalling, int nightvision, int jumpboost, int invisibility, int fireresistance, int baseCost) {
+        public ModifierCounter(int speed, int strength, int resistance, int regeneration, int saturation, int haste, int healthboost, int waterbreathing, int dolphinsgrace, int luck, int slowfalling, int nightvision, int jumpboost, int invisibility, int fireresistance, int knowledge, int flying, int manaregen, int spelllongevity, int spellpreserving, int spellhaste, int spellmight, int baseCost) {
             this.speed = speed;
             this.strength = strength;
             this.resistance = resistance;
@@ -885,6 +958,13 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
             this.jumpboost = jumpboost;
             this.invisibility = invisibility;
             this.fireresistance = fireresistance;
+            this.knowledge = knowledge;
+            this.flying = flying;
+            this.manaregen = manaregen;
+            this.spelllongevity = spelllongevity;
+            this.spellpreserving = spellpreserving;
+            this.spellhaste = spellhaste;
+            this.spellmight = spellmight;
             this.totalCost = baseCost;
         }
     }
@@ -955,6 +1035,34 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
             counter.fireresistance++;
             counter.totalCost += FIRE_RESISTANCE_COST_PER_BLOCK;
             return true;
+        } else if (state.is(ModBlocks.MODIFIER_KNOWLEDGE_BLOCK.get())) {
+            counter.knowledge++;
+            counter.totalCost += KNOWLEDGE_COST_PER_BLOCK;
+            return true;
+        } else if (state.is(ModBlocks.MODIFIER_FLIGHT_BLOCK.get())) {
+            counter.flying++;
+            counter.totalCost += FLYING_COST_PER_BLOCK;
+            return true;
+        } else if (state.is(ModBlocks.MODIFIER_MANAREGEN_BLOCK.get())) {
+            counter.manaregen++;
+            counter.totalCost += MANA_REGEN_COST_PER_BLOCK;
+            return true;
+        } else if (state.is(ModBlocks.MODIFIER_SPELLLONGEVITY_BLOCK.get())) {
+            counter.spelllongevity++;
+            counter.totalCost += SPELL_LONGEVITY_COST_PER_BLOCK;
+            return true;
+        } else if (state.is(ModBlocks.MODIFIER_SPELLPRESERVING_BLOCK.get())) {
+            counter.spellpreserving++;
+            counter.totalCost += SPELL_PRESERVING_COST_PER_BLOCK;
+            return true;
+        } else if (state.is(ModBlocks.MODIFIER_SPELLHASTE_BLOCK.get())) {
+            counter.spellhaste++;
+            counter.totalCost += SPELL_HASTE_COST_PER_BLOCK;
+            return true;
+        } else if (state.is(ModBlocks.MODIFIER_SPELLMIGHT_BLOCK.get())) {
+            counter.spellmight++;
+            counter.totalCost += SPELL_MIGHT_COST_PER_BLOCK;
+            return true;
         }
 
         // Return false if the block placed there doesn't match any allowed modifier
@@ -991,6 +1099,13 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
         tag.putInt("JumpBoostLevel", this.jumpboostLevel);
         tag.putInt("InvisibilityLevel", this.invisibilityLevel);
         tag.putInt("FireResistanceLevel", this.resistanceLevel);
+        tag.putInt("KnowledgeLevel", this.knowledgeLevel);
+        tag.putInt("FlyingLevel", this.flyingLevel);
+        tag.putInt("ManaRegenLevel", this.manaregenLevel);
+        tag.putInt("SpellLongevityLevel", this.spelllongevityLevel);
+        tag.putInt("SpellPreservingLevel", this.spellpreservingLevel);
+        tag.putInt("SpellHasteLevel", this.spellhasteLevel);
+        tag.putInt("SpellMightLevel", this.spellmightLevel);
 
         // FIXED: Explicitly use standard string formatting to guarantee clean identification
         if (ownerUuid != null) {
@@ -1051,6 +1166,27 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
         }
         if (tag.contains("FireResistanceLevel")) {
             this.fireresistanceLevel = tag.getInt("FireResistanceLevel");
+        }
+        if (tag.contains("KnowledgeLevel")) {
+            this.knowledgeLevel = tag.getInt("KnowledgeLevel");
+        }
+        if (tag.contains("FlyingLevel")) {
+            this.flyingLevel = tag.getInt("FlyingLevel");
+        }
+        if (tag.contains("ManaRegenLevel")) {
+            this.manaregenLevel = tag.getInt("ManaRegenLevel");
+        }
+        if (tag.contains("SpellLongevityLevel")) {
+            this.spelllongevityLevel = tag.getInt("SpellLongevityLevel");
+        }
+        if (tag.contains("SpellPreservingLevel")) {
+            this.spellpreservingLevel = tag.getInt("SpellPreservingLevel");
+        }
+        if (tag.contains("SpellHasteLevel")) {
+            this.spellhasteLevel = tag.getInt("SpellHasteLevel");
+        }
+        if (tag.contains("SpellMightLevel")) {
+            this.spellmightLevel = tag.getInt("SpellMightLevel");
         }
 
         // FIXED: Safely retrieve the string data back into a valid UUID object

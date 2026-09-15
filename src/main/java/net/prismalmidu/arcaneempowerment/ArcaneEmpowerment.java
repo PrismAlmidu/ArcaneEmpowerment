@@ -107,6 +107,8 @@ public class ArcaneEmpowerment
 
             MenuScreens.register(ModMenuTypes.PERK_SHRINE_MENU.get(), PerkShrineScreen::new);
 
+            MenuScreens.register(ModMenuTypes.ELDRIN_GENERATOR_MENU.get(), EldrinGeneratorScreen::new);
+
             ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_LIQUID_MANA.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_LIQUID_MANA.get(), RenderType.translucent());
         }
