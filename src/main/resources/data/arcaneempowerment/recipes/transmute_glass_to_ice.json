@@ -1,0 +1,10 @@
+{
+  "type": "arcaneempowerment:transmutation",
+  "ingredient": {
+    "item": "minecraft:glass"
+  },
+  "result": {
+    "item": "minecraft:ice",
+    "count": 1
+  }
+}

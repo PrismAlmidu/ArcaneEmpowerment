@@ -26,7 +26,7 @@ public class ModPerkRegistry {
 
     static {
         // =========================================================================
-        REGISTRY.put("a1",  new PerkModifier(createCellUUID("a1"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 0.10D, Operation.MULTIPLY_BASE)); // Spell Damage +10%
+        REGISTRY.put("a1",  new PerkModifier(createCellUUID("a1"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 3.0D, Operation.ADDITION)); // Spell Damage +3
         REGISTRY.put("a2",  new PerkModifier(createCellUUID("a2"),  LazyOptional.of(() -> AttributeRegistry.SPELL_EFFICIENCY.get()), 0.05D, Operation.MULTIPLY_BASE)); // Spell Efficiency +5%
         REGISTRY.put("a3",  new PerkModifier(createCellUUID("a3"),  LazyOptional.of(() -> AttributeRegistry.CAST_SPEED.get()), 0.05D, Operation.MULTIPLY_BASE)); //Cast Speed +5%
         REGISTRY.put("a4",  new PerkModifier(createCellUUID("a4"),  LazyOptional.of(() -> AttributeRegistry.SPELL_EFFICIENCY.get()), 0.05D, Operation.MULTIPLY_BASE)); // Spell Efficiency +5%
@@ -39,8 +39,8 @@ public class ModPerkRegistry {
         REGISTRY.put("a11",  new PerkModifier(createCellUUID("a11"),  LazyOptional.of(() -> AttributeRegistry.CAST_SPEED.get()), 0.05D, Operation.MULTIPLY_BASE)); //Cast Speed +5%
         REGISTRY.put("a12",  new PerkModifier(createCellUUID("a12"),  LazyOptional.of(() -> AttributeRegistry.SPELL_EFFICIENCY.get()), 0.05D, Operation.MULTIPLY_BASE)); // Spell Efficiency +5%
         REGISTRY.put("a13",  new PerkModifier(createCellUUID("a13"),  LazyOptional.of(() -> AttributeRegistry.CAST_SPEED.get()), 0.05D, Operation.MULTIPLY_BASE)); //Cast Speed +5%
-        REGISTRY.put("a14",  new PerkModifier(createCellUUID("a14"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 0.05D, Operation.MULTIPLY_BASE)); // Spell Damage +5%
-        REGISTRY.put("a15",  new PerkModifier(createCellUUID("a15"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 0.05D, Operation.MULTIPLY_BASE)); // Spell Damage +5%
+        REGISTRY.put("a14",  new PerkModifier(createCellUUID("a14"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 2.0D, Operation.ADDITION)); // Spell Damage +2
+        REGISTRY.put("a15",  new PerkModifier(createCellUUID("a15"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 2.0D, Operation.ADDITION)); // Spell Damage +2
         REGISTRY.put("a16", new PerkModifier(createCellUUID("a16"), LazyOptional.of(() -> Attributes.MAX_HEALTH), 4.0D, Operation.ADDITION));  // Max Health +4
         REGISTRY.put("a17", new PerkModifier(createCellUUID("a17"), LazyOptional.of(() -> Attributes.MAX_HEALTH), 4.0D, Operation.ADDITION));  // Max Health +4
         REGISTRY.put("a18", new PerkModifier(createCellUUID("a18"), LazyOptional.of(() -> Attributes.ARMOR_TOUGHNESS), 2.0D, Operation.ADDITION)); // Armor Toughness +2
@@ -50,12 +50,12 @@ public class ModPerkRegistry {
         REGISTRY.put("a22",  new PerkModifier(createCellUUID("a22"),  LazyOptional.of(() -> AttributeRegistry.MAX_MANA.get()), 100.0D, Operation.ADDITION)); // Max Mana +100
         REGISTRY.put("a23", new PerkModifier(createCellUUID("a23"), LazyOptional.of(() -> Attributes.MAX_HEALTH), 12.0D, Operation.ADDITION));  // Max Health +12
         REGISTRY.put("a24",  new PerkModifier(createCellUUID("a24"),  LazyOptional.of(() -> AttributeRegistry.MAX_MANA.get()), 100.0D, Operation.ADDITION)); // Max Mana +100
-        REGISTRY.put("a25",  new PerkModifier(createCellUUID("a25"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 0.05D, Operation.MULTIPLY_BASE)); // Spell Damage +5%
+        REGISTRY.put("a25",  new PerkModifier(createCellUUID("a25"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 2.0D, Operation.ADDITION)); // Spell Damage +2
         REGISTRY.put("a26",  new PerkModifier(createCellUUID("a26"),  LazyOptional.of(() -> AttributeRegistry.SPELL_EFFICIENCY.get()), 0.10D, Operation.MULTIPLY_BASE)); // Spell Efficiency +10%
         REGISTRY.put("a27",  new PerkModifier(createCellUUID("a27"),  LazyOptional.of(() -> AttributeRegistry.CAST_SPEED.get()), 0.10D, Operation.MULTIPLY_BASE)); //Cast Speed +10%
-        REGISTRY.put("a28",  new PerkModifier(createCellUUID("a28"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 0.10D, Operation.MULTIPLY_BASE)); // Spell Damage +10%
-        REGISTRY.put("a29",  new PerkModifier(createCellUUID("a29"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 0.10D, Operation.MULTIPLY_BASE)); // Spell Damage +10%
-        REGISTRY.put("a30",  new PerkModifier(createCellUUID("a30"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 0.10D, Operation.MULTIPLY_BASE)); // Spell Damage +10%
+        REGISTRY.put("a28",  new PerkModifier(createCellUUID("a28"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 3.0D, Operation.ADDITION)); // Spell Damage +3
+        REGISTRY.put("a29",  new PerkModifier(createCellUUID("a29"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 3.0D, Operation.ADDITION)); // Spell Damage +3
+        REGISTRY.put("a30",  new PerkModifier(createCellUUID("a30"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE.get()), 3.0D, Operation.ADDITION)); // Spell Damage +3
 
         REGISTRY.put("b1",  new PerkModifier(createCellUUID("b1"),  LazyOptional.of(() -> ALObjects.Attributes.ARROW_DAMAGE.get()), 0.10D, Operation.MULTIPLY_BASE)); // Arrow Damage +10%
         REGISTRY.put("b2",  new PerkModifier(createCellUUID("b2"),  LazyOptional.of(() -> ALObjects.Attributes.DRAW_SPEED.get()), 0.05D, Operation.MULTIPLY_BASE)); //Draw Speed +5%
@@ -120,32 +120,32 @@ public class ModPerkRegistry {
         REGISTRY.put("c30",  new PerkModifier(createCellUUID("c30"),  LazyOptional.of(() -> Attributes.ATTACK_DAMAGE), 0.10D, Operation.MULTIPLY_BASE));          // Attack Damage +10%
 
         REGISTRY.put("d1",  new PerkModifier(createCellUUID("d1"),  LazyOptional.of(() -> ALObjects.Attributes.EXPERIENCE_GAINED.get()), 0.10D, Operation.MULTIPLY_BASE)); //Experience Gained +10%
-        //REGISTRY.put("d2", new PerkModifier(createCellUUID("d2"), LazyOptional.of(() -> Attributes.SUBMERGED_MINING_SPEED), 0.1D, Operation.ADDITION));  // Submerged Mining Speed +0.1
-        //REGISTRY.put("d3", new PerkModifier(createCellUUID("d3"), LazyOptional.of(() -> Attributes.SAFE_FALL_DISTANCE), 1.0D, Operation.ADDITION));  // Safe Fall Distance +1
-        //REGISTRY.put("d4", new PerkModifier(createCellUUID("d4"), LazyOptional.of(() -> Attributes.SUBMERGED_MINING_SPEED), 0.1D, Operation.ADDITION));  // Submerged Mining Speed +0.1
-        //REGISTRY.put("d5", new PerkModifier(createCellUUID("d5"), LazyOptional.of(() -> Attributes.SAFE_FALL_DISTANCE), 1.0D, Operation.ADDITION));  // Safe Fall Distance +1
-        //REGISTRY.put("d6", new PerkModifier(createCellUUID("d6"), LazyOptional.of(() -> Attributes.SUBMERGED_MINING_SPEED), 0.1D, Operation.ADDITION));  // Submerged Mining Speed +0.1
-        //REGISTRY.put("d7", new PerkModifier(createCellUUID("d7"), LazyOptional.of(() -> Attributes.SAFE_FALL_DISTANCE), 1.0D, Operation.ADDITION));  // Safe Fall Distance +1
+        REGISTRY.put("d2", new PerkModifier(createCellUUID("d2"), LazyOptional.of(() -> ALObjects.Attributes.MINING_SPEED.get()), 0.1D, Operation.ADDITION));  // Mining Speed +0.1
+        REGISTRY.put("d3", new PerkModifier(createCellUUID("d16"), LazyOptional.of(() -> Attributes.LUCK), 0.2D, Operation.ADDITION));  // Luck + 0.2
+        REGISTRY.put("d4", new PerkModifier(createCellUUID("d2"), LazyOptional.of(() -> ALObjects.Attributes.MINING_SPEED.get()), 0.1D, Operation.ADDITION));  // Mining Speed +0.1
+        REGISTRY.put("d5", new PerkModifier(createCellUUID("d16"), LazyOptional.of(() -> Attributes.LUCK), 0.2D, Operation.ADDITION));  // Luck + 0.2
+        REGISTRY.put("d6", new PerkModifier(createCellUUID("d2"), LazyOptional.of(() -> ALObjects.Attributes.MINING_SPEED.get()), 0.1D, Operation.ADDITION));  // Mining Speed +0.1
+        REGISTRY.put("d7", new PerkModifier(createCellUUID("d16"), LazyOptional.of(() -> Attributes.LUCK), 0.2D, Operation.ADDITION));  // Luck + 0.2
         REGISTRY.put("d8",  new PerkModifier(createCellUUID("d8"),  LazyOptional.of(() -> AttributeRegistry.MANA_REGEN.get()), 0.10D, Operation.MULTIPLY_BASE)); //Mana Regen +10%
         REGISTRY.put("d9",  new PerkModifier(createCellUUID("d9"),  LazyOptional.of(() -> AttributeRegistry.MANA_REGEN.get()), 0.10D, Operation.MULTIPLY_BASE)); //Mana Regen +10%
-        //REGISTRY.put("d10", new PerkModifier(createCellUUID("d10"), LazyOptional.of(() -> Attributes.SUBMERGED_MINING_SPEED), 0.1D, Operation.ADDITION));  // Submerged Mining Speed +0.1
-        //REGISTRY.put("d11", new PerkModifier(createCellUUID("d11"), LazyOptional.of(() -> Attributes.SAFE_FALL_DISTANCE), 1.0D, Operation.ADDITION));  // Safe Fall Distance +1
-        //REGISTRY.put("d12", new PerkModifier(createCellUUID("d12"), LazyOptional.of(() -> Attributes.SUBMERGED_MINING_SPEED), 0.1D, Operation.ADDITION));  // Submerged Mining Speed +0.1
-        //REGISTRY.put("d13", new PerkModifier(createCellUUID("d13"), LazyOptional.of(() -> Attributes.SAFE_FALL_DISTANCE), 1.0D, Operation.ADDITION));  // Safe Fall Distance +1
+        REGISTRY.put("d10", new PerkModifier(createCellUUID("d2"), LazyOptional.of(() -> ALObjects.Attributes.MINING_SPEED.get()), 0.1D, Operation.ADDITION));  // Mining Speed +0.1
+        REGISTRY.put("d11", new PerkModifier(createCellUUID("d16"), LazyOptional.of(() -> Attributes.LUCK), 0.2D, Operation.ADDITION));  // Luck + 0.2
+        REGISTRY.put("d12", new PerkModifier(createCellUUID("d2"), LazyOptional.of(() -> ALObjects.Attributes.MINING_SPEED.get()), 0.1D, Operation.ADDITION));  // Mining Speed +0.1
+        REGISTRY.put("d13", new PerkModifier(createCellUUID("d16"), LazyOptional.of(() -> Attributes.LUCK), 0.2D, Operation.ADDITION));  // Luck + 0.2
         REGISTRY.put("d14",  new PerkModifier(createCellUUID("d14"),  LazyOptional.of(() -> ALObjects.Attributes.EXPERIENCE_GAINED.get()), 0.05D, Operation.MULTIPLY_BASE)); //Experience Gained +5%
         REGISTRY.put("d15",  new PerkModifier(createCellUUID("d15"),  LazyOptional.of(() -> ALObjects.Attributes.EXPERIENCE_GAINED.get()), 0.05D, Operation.MULTIPLY_BASE)); //Experience Gained +5%
         REGISTRY.put("d16", new PerkModifier(createCellUUID("d16"), LazyOptional.of(() -> Attributes.MAX_HEALTH), 4.0D, Operation.ADDITION));  // Max Health +4
         REGISTRY.put("d17", new PerkModifier(createCellUUID("d17"), LazyOptional.of(() -> Attributes.MAX_HEALTH), 4.0D, Operation.ADDITION));  // Max Health +4
         REGISTRY.put("d18", new PerkModifier(createCellUUID("d18"), LazyOptional.of(() -> Attributes.ARMOR_TOUGHNESS), 2.0D, Operation.ADDITION)); // Armor Toughness +2
         REGISTRY.put("d19", new PerkModifier(createCellUUID("d19"), LazyOptional.of(() -> Attributes.ARMOR_TOUGHNESS), 2.0D, Operation.ADDITION)); // Armor Toughness +2
-        //REGISTRY.put("d20", new PerkModifier(createCellUUID("d20"), LazyOptional.of(() -> Attributes.SUBMERGED_MINING_SPEED), 0.1D, Operation.ADDITION));  // Submerged Mining Speed +0.1
-        //REGISTRY.put("d21", new PerkModifier(createCellUUID("d21"), LazyOptional.of(() -> Attributes.SAFE_FALL_DISTANCE), 1.0D, Operation.ADDITION));  // Safe Fall Distance +1
+        REGISTRY.put("d20", new PerkModifier(createCellUUID("d2"), LazyOptional.of(() -> ALObjects.Attributes.MINING_SPEED.get()), 0.1D, Operation.ADDITION));  // Mining Speed +0.1
+        REGISTRY.put("d21", new PerkModifier(createCellUUID("d16"), LazyOptional.of(() -> Attributes.LUCK), 0.2D, Operation.ADDITION));  // Luck + 0.2
         REGISTRY.put("d22",  new PerkModifier(createCellUUID("d22"),  LazyOptional.of(() -> AttributeRegistry.MAX_MANA.get()), 100.0D, Operation.ADDITION)); // Max Mana +100
         REGISTRY.put("d23", new PerkModifier(createCellUUID("d23"), LazyOptional.of(() -> Attributes.MAX_HEALTH), 12.0D, Operation.ADDITION));  // Max Health +12
         REGISTRY.put("d24",  new PerkModifier(createCellUUID("d24"),  LazyOptional.of(() -> AttributeRegistry.MAX_MANA.get()), 100.0D, Operation.ADDITION)); // Max Mana +100
-        //REGISTRY.put("d25", new PerkModifier(createCellUUID("d25"), LazyOptional.of(() -> Attributes.SUBMERGED_MINING_SPEED), 0.2D, Operation.ADDITION));  // Submerged Mining Speed +0.2
+        REGISTRY.put("d25", new PerkModifier(createCellUUID("d2"), LazyOptional.of(() -> ALObjects.Attributes.MINING_SPEED.get()), 0.2D, Operation.ADDITION));  // Mining Speed +0.2
         REGISTRY.put("d26",  new PerkModifier(createCellUUID("d26"),  LazyOptional.of(() -> ALObjects.Attributes.EXPERIENCE_GAINED.get()), 0.05D, Operation.MULTIPLY_BASE)); //Experience Gained +5%
-        //REGISTRY.put("d27", new PerkModifier(createCellUUID("d27"), LazyOptional.of(() -> Attributes.SAFE_FALL_DISTANCE), 2.0D, Operation.ADDITION));  // Safe Fall Distance +2
+        REGISTRY.put("d27", new PerkModifier(createCellUUID("d16"), LazyOptional.of(() -> Attributes.LUCK), 0.4D, Operation.ADDITION));  // Luck + 0.4
         REGISTRY.put("d28",  new PerkModifier(createCellUUID("d28"),  LazyOptional.of(() -> ALObjects.Attributes.EXPERIENCE_GAINED.get()), 0.10D, Operation.MULTIPLY_BASE)); //Experience Gained +10%
         REGISTRY.put("d29",  new PerkModifier(createCellUUID("d29"),  LazyOptional.of(() -> ALObjects.Attributes.EXPERIENCE_GAINED.get()), 0.10D, Operation.MULTIPLY_BASE)); //Experience Gained +10%
         REGISTRY.put("d30",  new PerkModifier(createCellUUID("d30"),  LazyOptional.of(() -> ALObjects.Attributes.EXPERIENCE_GAINED.get()), 0.10D, Operation.MULTIPLY_BASE)); //Experience Gained +10%
@@ -178,19 +178,19 @@ public class ModPerkRegistry {
 
         REGISTRY.put("g1",  new PerkModifier(createCellUUID("g1"),  LazyOptional.of(() -> ALObjects.Attributes.LIFE_STEAL.get()), 0.01D, Operation.MULTIPLY_BASE)); //Life Steal +1%
         REGISTRY.put("g2",  new PerkModifier(createCellUUID("g2"),  LazyOptional.of(() -> ALObjects.Attributes.LIFE_STEAL.get()), 0.01D, Operation.MULTIPLY_BASE)); //Life Steal +1%
-        //REGISTRY.put("g3",  new PerkModifier(createCellUUID("g3"),  LazyOptional.of(() -> Attributes.SWEEPING_DAMAGE_RATIO), 0.20D, Operation.ADDITION)); // Sweeping Damage Ratio +0.2
+        REGISTRY.put("g3",  new PerkModifier(createCellUUID("g3"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE_MULTIPLIER.get()), 0.20D, Operation.MULTIPLY_BASE)); // Spell Damage Multiplier +20%
         REGISTRY.put("g4",  new PerkModifier(createCellUUID("g4"),  LazyOptional.of(() -> Attributes.KNOCKBACK_RESISTANCE), 0.20D, Operation.ADDITION)); // Knockback Resistance +0.2
         REGISTRY.put("g5",  new PerkModifier(createCellUUID("g5"),  LazyOptional.of(() -> Attributes.KNOCKBACK_RESISTANCE), 0.20D, Operation.ADDITION)); // Knockback Resistance +0.2
         REGISTRY.put("g6",  new PerkModifier(createCellUUID("g6"),  LazyOptional.of(() -> ALObjects.Attributes.CRIT_CHANCE.get()), 0.02D, Operation.MULTIPLY_BASE)); //Crit Chance +2%
         REGISTRY.put("g7",  new PerkModifier(createCellUUID("g7"),  LazyOptional.of(() -> ALObjects.Attributes.CRIT_CHANCE.get()), 0.02D, Operation.MULTIPLY_BASE)); //Crit Chance +2%
-        //REGISTRY.put("g8",  new PerkModifier(createCellUUID("g8"),  LazyOptional.of(() -> Attributes.SWEEPING_DAMAGE_RATIO), 0.20D, Operation.ADDITION)); // Sweeping Damage Ratio +0.2
-        //REGISTRY.put("g9",  new PerkModifier(createCellUUID("g9"),  LazyOptional.of(() -> Attributes.EXPLOSION_KNOCKBACK_RESISTANCE), 0.20D, Operation.ADDITION)); // Explosion Knockback Resistance +0.2
-        //REGISTRY.put("g10",  new PerkModifier(createCellUUID("g10"),  LazyOptional.of(() -> Attributes.EXPLOSION_KNOCKBACK_RESISTANCE), 0.20D, Operation.ADDITION)); // Explosion Knockback Resistance +0.2
-        //REGISTRY.put("g11",  new PerkModifier(createCellUUID("g11"),  LazyOptional.of(() -> Attributes.SWEEPING_DAMAGE_RATIO), 0.10D, Operation.ADDITION)); // Sweeping Damage Ratio +0.1
+        REGISTRY.put("g8",  new PerkModifier(createCellUUID("g3"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE_MULTIPLIER.get()), 0.20D, Operation.MULTIPLY_BASE)); // Spell Damage Multiplier +20%
+        REGISTRY.put("g9",  new PerkModifier(createCellUUID("h1"),  LazyOptional.of(() -> ALObjects.Attributes.GHOST_HEALTH.get()), 2.5D, Operation.ADDITION)); // Ghost Health +2.5
+        REGISTRY.put("g10",  new PerkModifier(createCellUUID("h1"),  LazyOptional.of(() -> ALObjects.Attributes.GHOST_HEALTH.get()), 2.5D, Operation.ADDITION)); // Ghost Health +2.5
+        REGISTRY.put("g11",  new PerkModifier(createCellUUID("g3"),  LazyOptional.of(() -> AttributeRegistry.SPELL_DAMAGE_MULTIPLIER.get()), 0.10D, Operation.MULTIPLY_BASE)); // Spell Damage Multiplier +10%
         REGISTRY.put("g12",  new PerkModifier(createCellUUID("g12"),  LazyOptional.of(() -> ForgeMod.BLOCK_REACH.get()), 1.0D, Operation.ADDITION)); // Block Interaction Range +1
 
-        //REGISTRY.put("h1",  new PerkModifier(createCellUUID("h1"),  LazyOptional.of(() -> Attributes.EXPLOSION_KNOCKBACK_RESISTANCE), 0.20D, Operation.ADDITION)); // Explosion Knockback Resistance +0.2
-        //REGISTRY.put("h2",  new PerkModifier(createCellUUID("h2"),  LazyOptional.of(() -> Attributes.EXPLOSION_KNOCKBACK_RESISTANCE), 0.20D, Operation.ADDITION)); // Explosion Knockback Resistance +0.2
+        REGISTRY.put("h1",  new PerkModifier(createCellUUID("h1"),  LazyOptional.of(() -> ALObjects.Attributes.GHOST_HEALTH.get()), 2.5D, Operation.ADDITION)); // Ghost Health +2.5
+        REGISTRY.put("h2",  new PerkModifier(createCellUUID("h1"),  LazyOptional.of(() -> ALObjects.Attributes.GHOST_HEALTH.get()), 2.5D, Operation.ADDITION)); // Ghost Health +2.5
         REGISTRY.put("h3",  new PerkModifier(createCellUUID("h3"),  LazyOptional.of(() -> AttributeRegistry.MAX_MANA.get()), 200.0D, Operation.ADDITION)); // Max Mana +200
         REGISTRY.put("h4",  new PerkModifier(createCellUUID("h4"),  LazyOptional.of(() -> ALObjects.Attributes.CRIT_CHANCE.get()), 0.02D, Operation.MULTIPLY_BASE)); //Crit Chance +2%
         REGISTRY.put("h5",  new PerkModifier(createCellUUID("h5"),  LazyOptional.of(() -> ALObjects.Attributes.CRIT_CHANCE.get()), 0.02D, Operation.MULTIPLY_BASE)); //Crit Chance +2%

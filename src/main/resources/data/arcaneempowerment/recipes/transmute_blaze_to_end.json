@@ -1,0 +1,10 @@
+{
+  "type": "arcaneempowerment:transmutation",
+  "ingredient": {
+    "item": "minecraft:blaze_rod"
+  },
+  "result": {
+    "item": "minecraft:end_rod",
+    "count": 1
+  }
+}

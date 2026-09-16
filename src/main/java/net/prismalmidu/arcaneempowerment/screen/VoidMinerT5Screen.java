@@ -109,6 +109,6 @@ public class VoidMinerT5Screen extends AbstractContainerScreen<VoidMinerT5Menu> 
 
         // Draw Right-Aligned Energy Line
         int energyX = this.imageWidth - this.font.width(energyText) - 8;
-        guiGraphics.drawString(this.font, energyText, 88, 72, 0x404040, false);
+        guiGraphics.drawString(this.font, energyText, 78, 72, 0x404040, false);
     }
 }

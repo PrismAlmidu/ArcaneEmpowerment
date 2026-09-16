@@ -1,0 +1,10 @@
+{
+  "type": "arcaneempowerment:transmutation",
+  "ingredient": {
+    "item": "minecraft:skeleton_skull"
+  },
+  "result": {
+    "item": "minecraft:wither_skeleton_skull",
+    "count": 1
+  }
+}

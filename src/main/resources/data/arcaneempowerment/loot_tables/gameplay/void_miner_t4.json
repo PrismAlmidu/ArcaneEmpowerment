@@ -6,23 +6,53 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "arcaneempowerment:chronium_shard",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:raw_iron",
-          "weight": 50
+          "weight": 15
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:raw_copper",
-          "weight": 40
+          "weight": 13
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:raw_gold",
-          "weight": 20
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mna:vinteum_dust",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mna:purified_vinteum_dust",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "mna:chimerite_gem",
+          "weight": 7
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:diamond",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
           "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:experience_bottle",
+          "weight": 4
         }
       ]
     }
