@@ -56,6 +56,10 @@ repositories {
         name = 'Shadows of Fire'
         url = 'https://maven.shadowsoffire.dev/releases'
     }
+    maven {
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
 }
 
 dependencies {
@@ -71,6 +75,12 @@ dependencies {
     implementation fg.deobf("curse.maven:mana-and-artifice-attributes-1103641:${mna_attributes_file_id}")
     implementation fg.deobf("curse.maven:apothic-attributes-898963:${apothic_attributes_file_id}")
     implementation fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
+
+    //JEI
+    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
+    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
+
+    runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
 
 }
 

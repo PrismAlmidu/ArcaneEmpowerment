@@ -1,7 +1,7 @@
 {
   "type": "arcaneempowerment:transmutation",
   "ingredient": {
-    "item": "minecraft:Lightning_rod"
+    "item": "minecraft:lightning_rod"
   },
   "result": {
     "item": "minecraft:blaze_rod",
