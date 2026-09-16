@@ -21,7 +21,6 @@ import net.prismalmidu.arcaneempowerment.ArcaneEmpowerment;
 import net.prismalmidu.arcaneempowerment.recipe.CraftingAltarRecipe;
 import net.prismalmidu.arcaneempowerment.recipe.ModRecipes;
 import net.prismalmidu.arcaneempowerment.recipe.TransmutationRecipe;
-import net.prismalmidu.arcaneempowerment.recipe.VoidMinerRecipe;
 import org.slf4j.Logger;
 
 import java.io.Reader;
@@ -47,8 +46,6 @@ public class JEIArcaneEmpowermentPlugin implements IModPlugin {
         registration.addRecipeCategories(new TransmutationRecipeCategory(
                 registration.getJeiHelpers().getGuiHelper()));
 
-        registration.addRecipeCategories(new VoidMinerT2RecipeCategory(
-                registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
