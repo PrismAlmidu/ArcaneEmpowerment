@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    "HA ",
+    "ATA",
+    " AH"
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:hay_block"
+    },
+    "A": {
+      "item": "arcaneempowerment:arcanium_shard"
+    },
+    "T": {
+      "item": "arcaneempowerment:modifier_template_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_slowfall_block"
+  }
+}

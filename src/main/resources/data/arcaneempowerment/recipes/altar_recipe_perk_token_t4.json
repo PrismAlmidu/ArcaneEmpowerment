@@ -1,0 +1,20 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 1024,
+  "pattern": [
+    " C ",
+    "CEC",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "arcaneempowerment:chronium_shard"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:perk_food_tier4"
+  }
+}

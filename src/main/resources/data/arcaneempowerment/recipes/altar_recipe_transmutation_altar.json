@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 2048,
+  "pattern": [
+    "P P",
+    " M ",
+    "GBG"
+  ],
+  "key": {
+    "P": {
+      "item": "arcaneempowerment:phantasmium_shard"
+    },
+    "M": {
+      "item": "mna:manaweaving_altar"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "B": {
+      "item": "arcaneempowerment:phantasmium_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:transmutation_altar"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NBN",
+    "CTC",
+    "NBN"
+  ],
+  "key": {
+    "C": {
+      "item": "arcaneempowerment:chronium_block"
+    },
+    "B": {
+      "item": "arcaneempowerment:liquid_mana_bucket"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "T": {
+      "item": "arcaneempowerment:crafting_altar_t4"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:crafting_altar_t5"
+  }
+}

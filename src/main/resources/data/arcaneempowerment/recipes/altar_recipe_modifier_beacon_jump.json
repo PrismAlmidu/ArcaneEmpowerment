@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    "SA ",
+    "ATA",
+    " AS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:slime_block"
+    },
+    "A": {
+      "item": "arcaneempowerment:arcanium_shard"
+    },
+    "T": {
+      "item": "arcaneempowerment:modifier_template_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_jump_block"
+  }
+}

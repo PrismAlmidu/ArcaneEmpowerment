@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "FAW",
+    "BTB",
+    "INE"
+  ],
+  "key": {
+    "F": {
+      "item": "mna:greater_mote_fire"
+    },
+    "A": {
+      "item": "mna:greater_mote_arcane"
+    },
+    "W": {
+      "item": "mna:greater_mote_water"
+    },
+    "B": {
+      "item": "arcaneempowerment:stellarium_block"
+    },
+    "T": {
+      "item": "arcaneempowerment:crafting_altar_t3"
+    },
+    "I": {
+      "item": "mna:greater_mote_air"
+    },
+    "N": {
+      "item": "mna:greater_mote_ender"
+    },
+    "E": {
+      "item": "mna:greater_mote_earth"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:crafting_altar_t4"
+  }
+}

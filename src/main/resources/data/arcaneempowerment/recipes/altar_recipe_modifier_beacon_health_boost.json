@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    "MS ",
+    "STS",
+    " SM"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:glistering_melon_slice"
+    },
+    "S": {
+      "item": "arcaneempowerment:stellarium_shard"
+    },
+    "T": {
+      "item": "arcaneempowerment:modifier_template_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_healthboost_block"
+  }
+}

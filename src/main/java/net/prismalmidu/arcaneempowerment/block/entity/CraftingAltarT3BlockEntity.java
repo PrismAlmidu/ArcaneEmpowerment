@@ -79,7 +79,7 @@ public class CraftingAltarT3BlockEntity extends BlockEntity implements MenuProvi
     private final ModEnergyStorage ENERGY_STORAGE = createEnergyStorage();
 
     private ModEnergyStorage createEnergyStorage() {
-        return new ModEnergyStorage(2048, 256) {
+        return new ModEnergyStorage(2048, 2048) {
             @Override
             public void onEnergyChanged() {
                 setChanged();

@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 4096,
+  "pattern": [
+    "CDC",
+    "CBC",
+    "COC"
+  ],
+  "key": {
+    "C": {
+      "item": "arcaneempowerment:chronium_block"
+    },
+    "D": {
+      "item": "minecraft:dragon_egg"
+    },
+    "B": {
+      "item": "arcaneempowerment:beacon_t3_block"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:beacon_t4_block"
+  }
+}

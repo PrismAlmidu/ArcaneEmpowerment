@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CGC",
+    "PTP",
+    "CGC"
+  ],
+  "key": {
+    "C": {
+      "item": "mna:chimerite_gem"
+    },
+    "G": {
+      "item": "mna:minor_mana_gem"
+    },
+    "P": {
+      "item": "arcaneempowerment:phantasmium_block"
+    },
+    "T": {
+      "item": "arcaneempowerment:crafting_altar_t2"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:crafting_altar_t3"
+  }
+}

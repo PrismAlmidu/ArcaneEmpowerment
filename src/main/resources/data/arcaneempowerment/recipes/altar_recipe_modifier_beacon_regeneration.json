@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    "EC ",
+    "CTC",
+    " CE"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+    "C": {
+      "item": "arcaneempowerment:chronium_shard"
+    },
+    "T": {
+      "item": "arcaneempowerment:modifier_template_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_regeneration_block"
+  }
+}

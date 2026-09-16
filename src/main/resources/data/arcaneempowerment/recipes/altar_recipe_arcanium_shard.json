@@ -2,7 +2,7 @@
   "type": "arcaneempowerment:crafting_altar",
   "energy": 8,
   "pattern": [
-    " C ",
+    " V ",
     "RCR",
     " G "
   ],
@@ -15,6 +15,9 @@
     },
     "G": {
       "item": "minecraft:gold_nugget"
+    },
+    "V": {
+      "item": "mna:vinteum_ingot"
     }
   },
   "output": {

@@ -1,0 +1,20 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 2048,
+  "pattern": [
+    " V ",
+    "VNV",
+    " V "
+  ],
+  "key": {
+    "V": {
+      "item": "arcaneempowerment:volsarnium_shard"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:perk_food_tier5"
+  }
+}

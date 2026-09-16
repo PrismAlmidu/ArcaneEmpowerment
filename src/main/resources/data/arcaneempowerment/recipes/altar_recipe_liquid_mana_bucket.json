@@ -1,13 +1,14 @@
 {
   "type": "arcaneempowerment:crafting_altar",
+  "energy": 1000,
   "pattern": [
     "   ",
-    " C ",
+    " B ",
     "   "
   ],
   "key": {
-    "C": {
-      "item": "arcaneempowerment:arcanium_shard"
+    "B": {
+      "item": "minecraft:bucket"
     }
   },
   "output": {

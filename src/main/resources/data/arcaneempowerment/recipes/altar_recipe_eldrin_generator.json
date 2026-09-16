@@ -1,0 +1,35 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 8192,
+  "pattern": [
+    "S C",
+    "BEB",
+    "AVP"
+  ],
+  "key": {
+    "A": {
+      "item": "arcaneempowerment:arcanium_block"
+    },
+    "P": {
+      "item": "arcaneempowerment:phantasmium_block"
+    },
+    "S": {
+      "item": "arcaneempowerment:stellarium_block"
+    },
+    "C": {
+      "item": "arcaneempowerment:chronium_block"
+    },
+    "V": {
+      "item": "arcaneempowerment:volsarnium_block"
+    },
+    "B": {
+      "item": "arcaneempowerment:liquid_mana_bucket"
+    },
+    "E": {
+      "item": "mna:eldrin_altar"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:eldrin_generator_block"
+  }
+}

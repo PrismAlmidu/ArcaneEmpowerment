@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 6144,
+  "pattern": [
+    "CDC",
+    "CMC",
+    "COC"
+  ],
+  "key": {
+    "C": {
+      "item": "arcaneempowerment:chronium_block"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "M": {
+      "item": "arcaneempowerment:void_miner_t4_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:void_miner_t5_block"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 2048,
+  "pattern": [
+    "SNS",
+    "SBS",
+    "SOS"
+  ],
+  "key": {
+    "S": {
+      "item": "arcaneempowerment:stellarium_block"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "B": {
+      "item": "minecraft:beacon"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:beacon_t3_block"
+  }
+}

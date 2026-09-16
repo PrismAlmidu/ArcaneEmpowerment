@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 96,
+  "pattern": [
+    "   ",
+    "SGS",
+    "PQP"
+  ],
+  "key": {
+    "S": {
+      "item": "arcaneempowerment:arcanium_shard"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "Q": {
+      "item": "mna:transmuted_silver"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:accumulator_core"
+  }
+}

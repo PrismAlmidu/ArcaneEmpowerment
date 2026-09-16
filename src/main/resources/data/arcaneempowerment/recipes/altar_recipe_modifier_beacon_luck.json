@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    "FP ",
+    "PTP",
+    " PF"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:fishing_rod"
+    },
+    "P": {
+      "item": "arcaneempowerment:phantasmium_shard"
+    },
+    "T": {
+      "item": "arcaneempowerment:modifier_template_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_luck_block"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 256,
+  "pattern": [
+    " F ",
+    " G ",
+    " C "
+  ],
+  "key": {
+    "F": {
+      "item": "mna:mana_crystal_fragment"
+    },
+    "G": {
+      "item": "mna:stone_rune_blank"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_template_block"
+  }
+}

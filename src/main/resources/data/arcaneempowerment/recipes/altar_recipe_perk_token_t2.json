@@ -1,0 +1,20 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 256,
+  "pattern": [
+    " P ",
+    "PGP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "arcaneempowerment:phantasmium_shard"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:perk_food_tier2"
+  }
+}

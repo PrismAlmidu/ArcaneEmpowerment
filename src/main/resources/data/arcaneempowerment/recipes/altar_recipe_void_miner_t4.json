@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 3072,
+  "pattern": [
+    "SDS",
+    "SMS",
+    "SOS"
+  ],
+  "key": {
+    "S": {
+      "item": "arcaneempowerment:stellarium_block"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "M": {
+      "item": "arcaneempowerment:void_miner_t3_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:void_miner_t4_block"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "FAW",
+    "BTB",
+    "INE"
+  ],
+  "key": {
+    "F": {
+      "item": "mna:mote_fire"
+    },
+    "A": {
+      "item": "mna:mote_arcane"
+    },
+    "W": {
+      "item": "mna:mote_water"
+    },
+    "B": {
+      "item": "arcaneempowerment:arcanium_block"
+    },
+    "T": {
+      "item": "arcaneempowerment:crafting_altar_t1"
+    },
+    "I": {
+      "item": "mna:mote_air"
+    },
+    "N": {
+      "item": "mna:mote_ender"
+    },
+    "E": {
+      "item": "mna:mote_earth"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:crafting_altar_t2"
+  }
+}

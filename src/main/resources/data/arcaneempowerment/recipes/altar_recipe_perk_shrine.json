@@ -1,0 +1,29 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 1024,
+  "pattern": [
+    "PBP",
+    "ALA",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "arcaneempowerment:phantasmium_shard"
+    },
+    "A": {
+      "item": "arcaneempowerment:accumulator_core"
+    },
+    "B": {
+      "item": "minecraft:book"
+    },
+    "L": {
+      "item": "minecraft:lectern"
+    },
+    "S": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:perk_shrine"
+  }
+}

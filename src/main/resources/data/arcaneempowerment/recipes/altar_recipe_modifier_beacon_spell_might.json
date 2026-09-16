@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    "FC ",
+    "CTC",
+    " CF"
+  ],
+  "key": {
+    "F": {
+      "item": "mna:greater_mote_fire"
+    },
+    "C": {
+      "item": "arcaneempowerment:chronium_shard"
+    },
+    "T": {
+      "item": "arcaneempowerment:modifier_template_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_spellmight_block"
+  }
+}

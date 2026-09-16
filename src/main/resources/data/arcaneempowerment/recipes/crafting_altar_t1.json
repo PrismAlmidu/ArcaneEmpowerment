@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SAS",
+    "ACA",
+    "SAS"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "S": {
+      "item": "mna:mana_crystal_fragment"
+    },
+    "A": {
+      "item": "mna:arcane_ash"
+    }
+  },
+  "result": {
+    "item": "arcaneempowerment:crafting_altar_t1"
+  }
+}

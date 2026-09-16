@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    "ES ",
+    "STS",
+    " SE"
+  ],
+  "key": {
+    "E": {
+      "item": "mna:greater_mote_earth"
+    },
+    "S": {
+      "item": "arcaneempowerment:stellarium_shard"
+    },
+    "T": {
+      "item": "arcaneempowerment:modifier_template_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_spellpreserving_block"
+  }
+}

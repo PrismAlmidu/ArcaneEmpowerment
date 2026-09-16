@@ -1,0 +1,23 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    "ECE",
+    "CTC",
+    "ECE"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:end_rod"
+    },
+    "C": {
+      "item": "minecraft:chorus_fruit"
+    },
+    "T": {
+      "item": "arcaneempowerment:modifier_template_block"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:modifier_minerproduction_block"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 8192,
+  "pattern": [
+    "VDV",
+    "VBV",
+    "VOV"
+  ],
+  "key": {
+    "V": {
+      "item": "arcaneempowerment:volsarnium_block"
+    },
+    "D": {
+      "item": "minecraft:dragon_egg"
+    },
+    "B": {
+      "item": "arcaneempowerment:beacon_t4_block"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:beacon_t5_block"
+  }
+}

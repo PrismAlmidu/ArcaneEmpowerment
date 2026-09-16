@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 768,
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AOA"
+  ],
+  "key": {
+    "A": {
+      "item": "arcaneempowerment:arcanium_block"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:void_miner_t2_block"
+  }
+}

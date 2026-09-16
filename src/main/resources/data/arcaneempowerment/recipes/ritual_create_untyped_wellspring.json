@@ -1,0 +1,78 @@
+{
+  "type": "mna:ritual",
+  "tier": 3,
+  "pattern":
+  [
+    [7, 0, 6, 0, 5],
+    [0, 12, 0, 11, 0],
+    [8, 0, 13, 0, 4],
+    [0, 9, 0, 10, 0],
+    [1, 0, 2, 0, 3]
+  ],
+  "reagents":
+  [
+    "E   F",
+    "     ",
+    "C G D",
+    "     ",
+    "A   B"
+  ],
+  "keys":
+  {
+    "A":
+    {
+      "item": "mna:fire_mote_lesser",
+      "optional": false,
+      "consume": true
+    },
+    "B":
+    {
+      "item": "mna:water_mote_lesser",
+      "optional": false,
+      "consume": true
+    },
+    "C":
+    {
+      "item": "mna:air_mote_lesser",
+      "optional": false,
+      "consume": true
+    },
+    "D":
+    {
+      "item": "mna:earth_mote_lesser",
+      "optional": false,
+      "consume": true
+    },
+    "E":
+    {
+      "item": "mna:arcane_mote_lesser",
+      "optional": false,
+      "consume": true
+    },
+    "F":
+    {
+      "item": "mna:ender_mote_lesser",
+      "optional": false,
+      "consume": true
+    },
+    "G":
+    {
+      "item": "arcaneempowerment:liquid_mana_bucket",
+      "optional": false,
+      "consume": true
+    }
+  },
+  "manaweave":
+  [
+  ],
+  "parameters":
+  {
+    "innerColor": "0xFFCC00",
+    "outerColor": "0xFF8A00",
+    "beamColor": "0xffd000"
+  },
+  "output": {
+    "type": "mna:command",
+    "command": "mna wellspring create ~ ~ ~ UNKNOWN"
+  }
+}

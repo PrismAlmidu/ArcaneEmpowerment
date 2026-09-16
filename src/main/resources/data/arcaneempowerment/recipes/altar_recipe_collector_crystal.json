@@ -1,0 +1,26 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 4096,
+  "pattern": [
+    "SAS",
+    " G ",
+    "SVS"
+  ],
+  "key": {
+    "S": {
+      "item": "arcaneempowerment:stellarium_shard"
+    },
+    "A": {
+      "item": "arcaneempowerment:accumulator_core"
+    },
+    "G": {
+      "item": "mna:major_mana_gem"
+    },
+    "V": {
+      "item": "mna:superheated_vinteum_ingot"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:collector_crystal"
+  }
+}

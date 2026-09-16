@@ -1,0 +1,20 @@
+{
+  "type": "arcaneempowerment:crafting_altar",
+  "energy": 512,
+  "pattern": [
+    " S ",
+    "SDS",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "item": "arcaneempowerment:stellarium_shard"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "output": {
+    "item": "arcaneempowerment:perk_food_tier3"
+  }
+}
