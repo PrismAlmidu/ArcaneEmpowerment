@@ -78,7 +78,7 @@ public class EldrinGeneratorBlock extends BaseEntityBlock {
                 if (generator.isStructureComplete()) {
                     NetworkHooks.openScreen((ServerPlayer) player, generator, pos);
                 } else {
-                    player.sendSystemMessage(Component.literal("§cStructure Incomplete! Check the base patterns. Right-click with a Diamond to force-complete for testing.§r"));
+                    player.sendSystemMessage(Component.literal("§cStructure Incomplete! Check the base patterns.§r"));
                 }
             }
             return InteractionResult.CONSUME;
