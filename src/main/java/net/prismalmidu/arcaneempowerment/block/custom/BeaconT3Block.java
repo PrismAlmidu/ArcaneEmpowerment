@@ -72,16 +72,6 @@ public class BeaconT3Block extends Block implements EntityBlock {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof BeaconT3BlockEntity beaconEntity) {
 
-                // 1. UTILITY CHEAT CODE FIRST: Let players add energy even if the structure is broken!
-                if (player.isCrouching() && player.getItemInHand(hand).isEmpty()) {
-                    beaconEntity.getCapability(net.minecraftforge.common.capabilities.ForgeCapabilities.ENERGY)
-                            .ifPresent(energy -> {
-                                int energyAdded = energy.receiveEnergy(1000, false);
-                                player.sendSystemMessage(Component.literal("§aAdded " + energyAdded + " FE. Current Energy: " + energy.getEnergyStored() + " FE"));
-                            });
-                    return InteractionResult.SUCCESS;
-                }
-
                 // 2. INSTANT SCAN FORCE: Force an instant validation on click so players never hit lag delays
                 beaconEntity.validateStructure(level, pos, state);
 

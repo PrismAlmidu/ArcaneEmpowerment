@@ -174,7 +174,7 @@ public class BeaconT4BlockEntity extends BlockEntity implements MenuProvider {
     // Concrete requirements for MenuProvider
     @Override
     public Component getDisplayName() {
-        return Component.translatable("Beacon Tier 3");
+        return Component.translatable("Beacon Tier 4");
     }
 
     @Nullable

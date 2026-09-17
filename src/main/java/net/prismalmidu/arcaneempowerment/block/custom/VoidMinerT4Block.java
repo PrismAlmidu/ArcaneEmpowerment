@@ -1,6 +1,7 @@
 package net.prismalmidu.arcaneempowerment.block.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -18,6 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.network.NetworkHooks;
 import net.prismalmidu.arcaneempowerment.block.entity.ModBlockEntities;
+import net.prismalmidu.arcaneempowerment.block.entity.VoidMinerT2BlockEntity;
 import net.prismalmidu.arcaneempowerment.block.entity.VoidMinerT4BlockEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,21 +51,20 @@ public class VoidMinerT4Block extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
-            if(entity instanceof VoidMinerT4BlockEntity voidMiner) {
+            if (entity instanceof VoidMinerT4BlockEntity voidMiner) {
 
-                // 🛠️ TEMPORARY TESTING SHORTCUT:
-                // If right-clicking with a Redstone Block, instantly fill the energy storage!
-                if (player.getItemInHand(hand).is(net.minecraft.world.item.Items.REDSTONE_BLOCK)) {
-                    // We access the capability on the server side to insert power directly
-                    voidMiner.getCapability(ForgeCapabilities.ENERGY)
-                            .ifPresent(energy -> energy.receiveEnergy(50000, false));
+                // 1. Force a structural validation scan right on right-click to prevent out-of-sync delays
+                voidMiner.validateStructure(level, pos, state);
 
-                    player.displayClientMessage(net.minecraft.network.chat.Component.literal("§a[Debug] Energy Filled!§r"), true);
-                    return InteractionResult.SUCCESS;
+                // 2. Check if the multiblock structure passed validation
+                if (voidMiner.isStructureComplete()) {
+                    // Forge Network opens the screen safely across the channel boundary
+                    NetworkHooks.openScreen((ServerPlayer) player, voidMiner, pos);
+                } else {
+                    // 3. Send a polished Action Bar message alerting the player
+                    // Passing 'true' pushes the message to the Action Bar (above the hotbar) instead of chat history
+                    player.displayClientMessage(Component.literal("§cError: Void Miner Tier 4 structure is invalid!"), true);
                 }
-
-                // Forge Network opens the screen safely across the channel boundary
-                NetworkHooks.openScreen((ServerPlayer) player, voidMiner, pos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }

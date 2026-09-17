@@ -21,37 +21,37 @@
   {
     "A":
     {
-      "item": "mna:fire_mote_lesser",
+      "item": "mna:mote_fire",
       "optional": false,
       "consume": true
     },
     "B":
     {
-      "item": "mna:water_mote_lesser",
+      "item": "mna:mote_water",
       "optional": false,
       "consume": true
     },
     "C":
     {
-      "item": "mna:air_mote_lesser",
+      "item": "mna:mote_air",
       "optional": false,
       "consume": true
     },
     "D":
     {
-      "item": "mna:earth_mote_lesser",
+      "item": "mna:mote_earth",
       "optional": false,
       "consume": true
     },
     "E":
     {
-      "item": "mna:arcane_mote_lesser",
+      "item": "mna:mote_arcane",
       "optional": false,
       "consume": true
     },
     "F":
     {
-      "item": "mna:ender_mote_lesser",
+      "item": "mna:mote_ender",
       "optional": false,
       "consume": true
     },
@@ -68,11 +68,9 @@
   "parameters":
   {
     "innerColor": "0xFFCC00",
-    "outerColor": "0xFF8A00",
-    "beamColor": "0xffd000"
+    "outerColor": "0x8C4FFF",
+    "beamColor": "0x8C4FFF",
+    "displayIndexes": false
   },
-  "output": {
-    "type": "mna:command",
-    "command": "mna wellspring create ~ ~ ~ UNKNOWN"
-  }
+  "command": "/mna wellspring create ~ ~ ~ UNKNOWN"
 }

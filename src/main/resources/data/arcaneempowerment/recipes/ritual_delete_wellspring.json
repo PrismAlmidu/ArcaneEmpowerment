@@ -1,0 +1,46 @@
+{
+  "type": "mna:ritual",
+  "tier": 3,
+  "pattern":
+  [
+    [10, 0, 7, 0, 4],
+    [0, 9, 6, 3, 0],
+    [13, 12, 1, 23, 24],
+    [0, 15, 17, 20, 0],
+    [16, 0, 18, 0, 21]
+  ],
+  "reagents":
+  [
+    "B B B",
+    "     ",
+    "B A B",
+    "     ",
+    "B B B"
+  ],
+  "keys":
+  {
+    "A":
+    {
+      "item": "minecraft:water_bucket",
+      "optional": false,
+      "consume": true
+    },
+    "B":
+    {
+      "item": "minecraft:charcoal",
+      "optional": false,
+      "consume": true
+    }
+  },
+  "manaweave":
+  [
+  ],
+  "parameters":
+  {
+    "innerColor": "0xFFFFFF",
+    "outerColor": "0x84D6FF",
+    "beamColor": "0x84D6FF",
+    "displayIndexes": false
+  },
+  "command": "/mna wellspring delete ~ 0 ~"
+}

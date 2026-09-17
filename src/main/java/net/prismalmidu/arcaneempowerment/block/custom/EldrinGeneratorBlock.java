@@ -74,39 +74,6 @@ public class EldrinGeneratorBlock extends BaseEntityBlock {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof EldrinGeneratorBlockEntity generator) {
 
-                ItemStack heldItem = player.getItemInHand(hand);
-
-                // 1. Right click with a DIAMOND to fill FE storage AND force structural completion
-                if (heldItem.is(net.minecraft.world.item.Items.DIAMOND)) {
-                    generator.getEnergyStorage().receiveEnergy(50000, false);
-
-                    // FORCE THE MULTIBLOCK TO COUNT AS VALID FOR TESTING PURPOSES
-                    try {
-                        java.lang.reflect.Field completeField = generator.getClass().getDeclaredField("isComplete");
-                        completeField.setAccessible(true);
-                        completeField.setBoolean(generator, true);
-                    } catch (Exception e) {
-                        // Fallback message if reflection field names mismatch in your dev environment
-                        player.sendSystemMessage(Component.literal("§c[TESTING] Failed to bypass multiblock check. Build the base structure physically!§r"));
-                    }
-
-                    generator.setChanged();
-                    generator.updateCapabilityConnections(); // Force pipeline refresh
-                    player.sendSystemMessage(Component.literal("§a[TESTING] Force-filled FE (50k RF) & bypassed structure check!§r"));
-                    return InteractionResult.SUCCESS;
-                }
-
-                // 2. Right click with an EMERALD to max out the Fluid Tank with custom liquid mana
-                if (heldItem.is(net.minecraft.world.item.Items.EMERALD)) {
-                    net.minecraftforge.fluids.FluidStack testManaStack = new net.minecraftforge.fluids.FluidStack(
-                            net.prismalmidu.arcaneempowerment.fluid.ModFluids.SOURCE_LIQUID_MANA.get(), 4000
-                    );
-                    generator.getFluidTank().fill(testManaStack, net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);
-                    generator.setChanged();
-                    player.sendSystemMessage(Component.literal("§b[TESTING] Force-filled Fluid Tank with 4000mB Liquid Mana!§r"));
-                    return InteractionResult.SUCCESS;
-                }
-
                 // Normal gameplay behavior when clicking with empty hands or normal blocks
                 if (generator.isStructureComplete()) {
                     NetworkHooks.openScreen((ServerPlayer) player, generator, pos);

@@ -327,6 +327,10 @@ public class VoidMinerT2BlockEntity extends BlockEntity implements MenuProvider 
         setChanged();
     }
 
+    public boolean isStructureComplete() {
+        return this.isComplete;
+    }
+
     protected final ContainerData data = new ContainerData() {
         @Override
         public int get(int index) {

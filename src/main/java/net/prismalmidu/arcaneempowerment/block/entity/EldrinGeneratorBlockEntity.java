@@ -41,8 +41,75 @@ public class EldrinGeneratorBlockEntity extends BlockEntity implements MenuProvi
     };
 
     // 2. Capabilities
-    private final LazyOptional<IEnergyStorage> energyOptional = LazyOptional.of(() -> energyStorage);
-    private final LazyOptional<IFluidHandler> fluidOptional = LazyOptional.of(() -> fluidTank);
+    private LazyOptional<IEnergyStorage> energyOptional = LazyOptional.of(() -> new IEnergyStorage() {
+        @Override
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+            return energyStorage.receiveEnergy(maxReceive, simulate);
+        }
+
+        @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+            return 0; // 🛑 Block external extraction completely
+        }
+
+        @Override
+        public int getEnergyStored() {
+            return energyStorage.getEnergyStored();
+        }
+
+        @Override
+        public int getMaxEnergyStored() {
+            return energyStorage.getMaxEnergyStored();
+        }
+
+        @Override
+        public boolean canExtract() {
+            return false; // 🛑 Tell cables this block cannot be drained
+        }
+
+        @Override
+        public boolean canReceive() {
+            return energyStorage.canReceive();
+        }
+    });
+
+
+    private LazyOptional<IFluidHandler> fluidOptional = LazyOptional.of(() -> new IFluidHandler() {
+        @Override
+        public int getTanks() {
+            return fluidTank.getTanks();
+        }
+
+        @Override
+        public @NotNull net.minecraftforge.fluids.FluidStack getFluidInTank(int tank) {
+            return fluidTank.getFluidInTank(tank);
+        }
+
+        @Override
+        public int getTankCapacity(int tank) {
+            return fluidTank.getTankCapacity(tank);
+        }
+
+        @Override
+        public boolean isFluidValid(int tank, @NotNull net.minecraftforge.fluids.FluidStack stack) {
+            return fluidTank.isFluidValid(tank, stack);
+        }
+
+        @Override
+        public int fill(net.minecraftforge.fluids.FluidStack resource, FluidAction action) {
+            return fluidTank.fill(resource, action); // Allow insertion
+        }
+
+        @Override
+        public @NotNull net.minecraftforge.fluids.FluidStack drain(net.minecraftforge.fluids.FluidStack resource, FluidAction action) {
+            return net.minecraftforge.fluids.FluidStack.EMPTY; // 🛑 Block targeted drain
+        }
+
+        @Override
+        public @NotNull net.minecraftforge.fluids.FluidStack drain(int maxDrain, FluidAction action) {
+            return net.minecraftforge.fluids.FluidStack.EMPTY; // 🛑 Block generic drain
+        }
+    });
 
     // 3. Modifiers, Tracking & Multiblock State
     private UUID ownerUUID = null;
@@ -51,7 +118,7 @@ public class EldrinGeneratorBlockEntity extends BlockEntity implements MenuProvi
 
     private static final int FE_PER_TICK = 100;
     private static final int FLUID_PER_TICK = 10;
-    private static final float ELDRIN_POWER_PER_AFFINITY = 0.5f;
+    private static final float ELDRIN_POWER_PER_AFFINITY = 0.2f;
 
     // Shared data tracking array for the UI (6 Affinities + Energy + Fluid amount)
     // 0: Energy, 1: Fluid, 2: Arcane Gen (x100), 3: Earth Gen (x100), etc.
@@ -300,17 +367,21 @@ public class EldrinGeneratorBlockEntity extends BlockEntity implements MenuProvi
     // 6. Capability Exposing
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        // Hide all capabilities from external pipes/cables if the structure is incomplete
+        // OPTIONAL: Keep this guard if you want to block external input until the structure is fully built
         if (!this.isComplete) {
             return super.getCapability(cap, side);
         }
 
+        // Expose Forge Energy capability to incoming cables
         if (cap == ForgeCapabilities.ENERGY) {
             return energyOptional.cast();
         }
+
+        // Expose Fluid Handler capability to incoming pipes
         if (cap == ForgeCapabilities.FLUID_HANDLER) {
             return fluidOptional.cast();
         }
+
         return super.getCapability(cap, side);
     }
 
@@ -321,18 +392,32 @@ public class EldrinGeneratorBlockEntity extends BlockEntity implements MenuProvi
         fluidOptional.invalidate();
     }
 
-    // Force external pipes and networks to visually disconnect or reconnect when the status shifts
+
     public void updateCapabilityConnections() {
         if (this.level != null) {
-            // Invalidates the capability cache so neighbors re-query getCapability()
             this.energyOptional.invalidate();
             this.fluidOptional.invalidate();
 
-            // Re-instantiate the lazy optionals so they are ready for the next check if valid
-            // (Only re-instantiate if the capability system needs a clean reference)
-            // Forge handles re-queries automatically if the previous reference is invalidated.
+            // Re-assign the input-only wrappers
+            this.energyOptional = LazyOptional.of(() -> new IEnergyStorage() {
+                @Override public int receiveEnergy(int maxReceive, boolean simulate) { return energyStorage.receiveEnergy(maxReceive, simulate); }
+                @Override public int extractEnergy(int maxExtract, boolean simulate) { return 0; }
+                @Override public int getEnergyStored() { return energyStorage.getEnergyStored(); }
+                @Override public int getMaxEnergyStored() { return energyStorage.getMaxEnergyStored(); }
+                @Override public boolean canExtract() { return false; }
+                @Override public boolean canReceive() { return energyStorage.canReceive(); }
+            });
 
-            // Notify neighbors that things have structurally changed
+            this.fluidOptional = LazyOptional.of(() -> new IFluidHandler() {
+                @Override public int getTanks() { return fluidTank.getTanks(); }
+                @Override public @NotNull net.minecraftforge.fluids.FluidStack getFluidInTank(int tank) { return fluidTank.getFluidInTank(tank); }
+                @Override public int getTankCapacity(int tank) { return fluidTank.getTankCapacity(tank); }
+                @Override public boolean isFluidValid(int tank, @NotNull net.minecraftforge.fluids.FluidStack stack) { return fluidTank.isFluidValid(tank, stack); }
+                @Override public int fill(net.minecraftforge.fluids.FluidStack resource, FluidAction action) { return fluidTank.fill(resource, action); }
+                @Override public @NotNull net.minecraftforge.fluids.FluidStack drain(net.minecraftforge.fluids.FluidStack resource, FluidAction action) { return net.minecraftforge.fluids.FluidStack.EMPTY; }
+                @Override public @NotNull net.minecraftforge.fluids.FluidStack drain(int maxDrain, FluidAction action) { return net.minecraftforge.fluids.FluidStack.EMPTY; }
+            });
+
             this.level.updateNeighborsAt(this.worldPosition, this.getBlockState().getBlock());
         }
     }
